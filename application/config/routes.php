@@ -62,42 +62,55 @@ $route['translate_uri_dashes'] = FALSE;
 
 // ADMIN 
 // admin login, 
+$route['admin'] = 'admin';
+
 // view supporters
+$route['supporters'] = 'admin/supporters';
 // add/edit supporters
+$route['supporters/(:any)'] = 'admin/add_supporters';
+
+
 // view recipients,
+$route['recipients'] = 'admin/recipients';
 // add/edit recipient
+$route['recipients/(:any)'] = 'admin/add_recipients';
+
+
 
 // USER VIEW (mostly mobile)
 // view supporter
+$route['supporter/(:any)'] = 'main/supporter';
 // view donation
+$route['recipient/(:any)'] = 'main/recipient';
+
 
 
 
 // Pages
-$route['upcoming'] = 'main/upcoming_birthdays';
-$route['upcoming/(:num)'] = 'main/upcoming_birthdays/$1';
+// $route['upcoming'] = 'main/upcoming_birthdays';
+// $route['upcoming/(:num)'] = 'main/upcoming_birthdays/$1';
 
-$route['celebrated'] = 'main/celebrated_birthdays';
-$route['celebrated/(:num)'] = 'main/celebrated_birthdays/$1';
+// $route['celebrated'] = 'main/celebrated_birthdays';
+// $route['celebrated/(:num)'] = 'main/celebrated_birthdays/$1';
 
-$route["donation_success"] = "main/donation_success";
-$route['donate'] = 'main/donate';
-$route['donate/(:num)'] = 'main/donate/$1';
-$route['profile'] = 'main/child';
-$route['profile/(:num)'] = 'main/child/$1';
+// $route["donation_success"] = "main/donation_success";
+// $route['donate'] = 'main/donate';
+// $route['donate/(:num)'] = 'main/donate/$1';
+// $route['profile'] = 'main/child';
+// $route['profile/(:num)'] = 'main/child/$1';
 
 
-$route['about'] = 'main/about';
-$route['about/(:any)'] = 'main/about/$1';
+// $route['about'] = 'main/about';
+// $route['about/(:any)'] = 'main/about/$1';
 
-$route['how'] = 'main/howitworks';
+// $route['how'] = 'main/howitworks';
 
 
 // Auth
-$route['admin'] = 'admin';
-$route['login'] = 'main/login';
-$route['logout'] = 'main/logout';
+// $route['admin'] = 'admin';
+// $route['login'] = 'main/login';
+// $route['logout'] = 'main/logout';
 
 // Functions
-$route['sponsor/(:any)'] = "main/sponsor/$1";
+// $route['sponsor/(:any)'] = "main/sponsor/$1";
 
