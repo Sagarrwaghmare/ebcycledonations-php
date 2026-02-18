@@ -1,104 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Recipient</title>
+     
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; background: linear-gradient(to bottom, #87CEEB 0%, #e0f7fa 50%, #556B2F 100%);">
 
-    <!-- Main Container (Wider for the table) -->
-    <div style="background-color: #ffffff; width: 95%; max-width: 1100px; margin-top: 50px; margin-bottom: 50px; padding: 40px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-top: 8px solid #FF8C00;">
-        
+<body class="m-0 p-0 font-sans min-h-screen flex justify-center items-start bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
+
+    <!-- Main Container (Increased max-width to accommodate larger maps/photos) -->
+    <div class="bg-white w-[95%] max-w-[1300px] mt-[50px] mb-[50px] p-10 rounded-lg shadow-2xl border-t-8 border-[#FF8C00]">
+
         <!-- Header -->
-        <div style="margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
-            <h1 style="color: #2E8B57; margin: 0; font-size: 32px;">View Recipient</h1>
-            <h3 style="color: #555; margin-top: 10px; font-weight: normal;">Supporter: <span style="color: #FF8C00; font-weight: bold;">Sagar Waghmare</span></h3>
+        <div class="mb-8 border-b-2 border-gray-100 pb-4">
+            <h1 class="text-[#2E8B57] m-0 text-3xl font-bold">View Recipient</h1>
+            <!-- PHP Variable check for display safety -->
+            <h3 class="text-gray-600 mt-2 text-lg font-normal">
+                Supporter: <span class="text-[#FF8C00] font-bold">Sagar Waghmare</span>
+            </h3>
         </div>
 
         <!-- Table -->
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; min-width: 900px;">
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse mb-8 min-w-[1000px]" id="recipientTable">
                 <thead>
-                    <tr style="background-color: #2E8B57; color: white; text-align: left;">
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd; width: 50px;">Sr.No</th>
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd;">Recipient</th>
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd;">School</th>
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd;">Standard</th>
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd; width: 150px;">Location</th>
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd; text-align: center;">Photo</th>
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd; text-align: center; width: 160px;">Action</th>
+                    <tr class="bg-[#2E8B57] text-white text-left">
+                        <th class="p-4 border-b-2 border-gray-200 w-16">Sr.No</th>
+                        <th class="p-4 border-b-2 border-gray-200">Recipient</th>
+                        <th class="p-4 border-b-2 border-gray-200">School</th>
+                        <th class="p-4 border-b-2 border-gray-200 w-24">Std</th>
+                        <!-- Widen the location column -->
+                        <th class="p-4 border-b-2 border-gray-200 w-64">Location</th>
+                        <!-- Widen the photo column -->
+                        <th class="p-4 border-b-2 border-gray-200 text-center w-48">Photo</th>
+                        <th class="p-4 border-b-2 border-gray-200 text-center w-48">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Row 1 -->
-                    <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px 15px; color: #333;">1</td>
-                        <td style="padding: 12px 15px; color: #333; font-weight: 600;">Priya Mahadik</td>
-                        <td style="padding: 12px 15px; color: #555;">Prathamik School</td>
-                        <td style="padding: 12px 15px; color: #555;">4th</td>
-                        
-                        <!-- Map Location (Using Iframe) -->
-                        <td style="padding: 10px;">
-                            <div style="border: 2px solid #87CEEB; border-radius: 4px; overflow: hidden; height: 80px;">
-                                <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Pune,Maharashtra&t=&z=10&ie=UTF8&iwloc=&output=embed"></iframe>
-                            </div>
-                        </td>
+                <tbody id="tableBody">
 
-                        <!-- Photo -->
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <img src="https://ui-avatars.com/api/?name=Priya+Mahadik&background=FF8C00&color=fff&rounded=true" alt="Priya" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #eee; object-fit: cover;">
-                        </td>
+                    <?php
+                    $i = 1;
+                    if(isset($recipients) && is_array($recipients)) {
+                        foreach ($recipients as $key => $value) {
+                            // PHP: Construct Map URL
+                            $locationUrl = "https://maps.google.com/maps?q=".$value["location"]."&t=&z=10&ie=UTF8&iwloc=&output=embed";
+                    ?>
+                        <!-- 'data-row' class for jQuery pagination -->
+                        <tr class="data-row border-b border-gray-100 hover:bg-gray-50 transition-colors align-top">
+                            <td class="p-4 text-gray-800 font-bold"><?php echo $i; ?></td>
+                            
+                            <td class="p-4">
+                                <div class="text-gray-800 font-bold text-lg"><?php echo $value["studentName"]; ?></div>
+                            </td>
+                            
+                            <td class="p-4 text-gray-600"><?php echo $value["schoolName"]; ?></td>
+                            <td class="p-4 text-gray-600"><?php echo $value["standard"]; ?></td>
 
-                        <!-- Actions (Side by Side) -->
-                        <td style="padding: 12px 15px;">
-                            <div style="display: flex; gap: 8px; justify-content: center;">
-                                <button style="padding: 8px 15px; background-color: #4682B4; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px;">Edit</button>
-                                <button style="padding: 8px 15px; background-color: #CD5C5C; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px;">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
+                            <!-- Map Location (Larger & Styled) -->
+                            <td class="p-4">
+                                <!-- <div class="mb-1 text-xs text-gray-500 truncate w-60"><?php echo $value["location"]; ?></div> -->
+                                <!-- Increased height to h-32 (128px) and added rounded corners -->
+                                <div class="border-2 border-[#87CEEB] rounded-lg overflow-hidden h-32 w-full shadow-sm">
+                                    <iframe class="w-full h-full" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="<?php echo $locationUrl; ?>"></iframe>
+                                </div>
+                            </td>
 
-                    <!-- Row 2 -->
-                    <tr style="background-color: #f9fdf9; border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px 15px; color: #333;">2</td>
-                        <td style="padding: 12px 15px; color: #333; font-weight: 600;">Vidhi Bhanushali</td>
-                        <td style="padding: 12px 15px; color: #555;">Shree Vidyalaya</td>
-                        <td style="padding: 12px 15px; color: #555;">6th</td>
-                        
-                        <!-- Map Location -->
-                        <td style="padding: 10px;">
-                            <div style="border: 2px solid #87CEEB; border-radius: 4px; overflow: hidden; height: 80px;">
-                                <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Mumbai,Maharashtra&t=&z=10&ie=UTF8&iwloc=&output=embed"></iframe>
-                            </div>
-                        </td>
+                            <!-- Photo (Larger & Rectangular with rounded corners) -->
+                            <td class="p-4 text-center">
+                                <!-- Changed from rounded-full to rounded-lg, increased size to h-32/w-full to match map -->
+                                <img src="<?php echo base_url('assets/images/'.$value["photoUrl"]); ?>" 
+                                     alt="Recipient" 
+                                     class="w-full h-32 object-cover rounded-lg border-2 border-gray-200 shadow-sm mx-auto">
+                            </td>
 
-                        <!-- Photo -->
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <img src="https://ui-avatars.com/api/?name=Vidhi+Bhanushali&background=2E8B57&color=fff&rounded=true" alt="Vidhi" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #eee; object-fit: cover;">
-                        </td>
+                            <!-- Actions -->
+                            <td class="p-4 text-center">
+                                <div class="flex flex-col gap-2 justify-center h-full pt-6">
+                                    <a href="<?php echo base_url('admin/add_recipients/'. $value["id"])?>"
+                                       class="px-4 py-2 bg-[#4682B4] text-white rounded font-bold hover:brightness-95 transition text-sm text-center no-underline">
+                                        Edit
+                                    </a>
+                                    <button class="px-4 py-2 bg-[#CD5C5C] text-white rounded font-bold hover:brightness-95 transition text-sm cursor-pointer border-none">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
 
-                        <!-- Actions -->
-                        <td style="padding: 12px 15px;">
-                            <div style="display: flex; gap: 8px; justify-content: center;">
-                                <button style="padding: 8px 15px; background-color: #4682B4; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px;">Edit</button>
-                                <button style="padding: 8px 15px; background-color: #CD5C5C; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px;">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
+                    <?php
+                            $i++;
+                        }
+                    }
+                    ?>
 
                 </tbody>
             </table>
         </div>
 
-        <!-- Add Button Area -->
-        <div style="display: flex; justify-content: flex-start; margin-top: 10px;">
-            <button style="padding: 12px 30px; background-color: #FF8C00; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); font-size: 16px;">
-                + Add Recipient
-            </button>
+        <!-- Footer Actions (Add Button + Pagination) -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-5 pt-4">
+
+            <!-- Add Recipient Button -->
+            <div>
+                <button class="px-6 py-3 bg-[#FF8C00] text-white rounded-md font-bold shadow-md hover:bg-orange-600 transition cursor-pointer border-none text-base">
+                    + Add Recipient
+                </button>
+            </div>
+
+            <!-- Pagination & Select Input -->
+            <div class="flex items-center gap-4 text-gray-800 font-bold">
+                
+                <!-- Rows Per Page Select -->
+                <div class="flex items-center gap-2 text-sm font-normal">
+                    <label for="rowsPerPage">Rows:</label>
+                    <select id="rowsPerPage" class="border border-gray-300 rounded p-1 text-sm bg-white focus:outline-none focus:border-[#2E8B57]">
+                        <option value="2">2</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                        <option value="all">All</option>
+                    </select>
+                </div>
+
+                <!-- Page Numbers -->
+                <div id="paginationNumbers" class="flex gap-1">
+                    <!-- jQuery will inject buttons here -->
+                </div>
+            </div>
+
         </div>
 
     </div>
 
+    <!-- jQuery Logic for Pagination -->
+    <script>
+        $(document).ready(function() {
+            // Cache DOM elements
+            const $tableBody = $('#tableBody');
+            const $rows = $tableBody.find('.data-row'); // Select by class to ensure specific targeting
+            const $select = $('#rowsPerPage');
+            const $paginationContainer = $('#paginationNumbers');
+            
+            let currentPage = 1;
+
+            // Function to render table based on pagination settings
+            function renderTable() {
+                const limitVal = $select.val();
+                const totalRows = $rows.length;
+
+                // Handle "All" selection
+                if (limitVal === 'all') {
+                    $rows.show();
+                    $paginationContainer.empty();
+                    return;
+                }
+
+                const limit = parseInt(limitVal);
+                const totalPages = Math.ceil(totalRows / limit);
+
+                // Reset to page 1 if current page is out of bounds
+                if (currentPage > totalPages && totalPages > 0) {
+                    currentPage = 1;
+                }
+
+                // Hide all rows initially
+                $rows.hide();
+
+                // Calculate range
+                const start = (currentPage - 1) * limit;
+                const end = start + limit;
+
+                // Show rows within range
+                $rows.slice(start, end).show();
+
+                // Generate pagination buttons
+                renderPagination(totalPages);
+            }
+
+            // Function to create pagination buttons
+            function renderPagination(totalPages) {
+                $paginationContainer.empty();
+
+                for (let i = 1; i <= totalPages; i++) {
+                    let classes = "px-3 py-1 rounded cursor-pointer transition select-none ";
+                    if (i === currentPage) {
+                        classes += "bg-[#FF8C00] text-white";
+                    } else {
+                        classes += "hover:bg-gray-200 text-gray-700";
+                    }
+
+                    const $btn = $('<span>', {
+                        text: i,
+                        class: classes,
+                        click: function() {
+                            currentPage = i;
+                            renderTable();
+                        }
+                    });
+
+                    $paginationContainer.append($btn);
+                }
+            }
+
+            // Event listener for Select change
+            $select.on('change', function() {
+                currentPage = 1; 
+                renderTable();
+            });
+
+            // Initial render
+            renderTable();
+        });
+    </script>
+
 </body>
+
 </html>

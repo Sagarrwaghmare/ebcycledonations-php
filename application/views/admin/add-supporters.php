@@ -1,65 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add/Edit Supporter</title>
+    <!-- Tailwind CSS -->
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(to bottom, #87CEEB 0%, #e0f7fa 50%, #556B2F 100%);">
+
+<body class="m-0 p-0 font-sans min-h-screen flex justify-center items-center bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
+
+    <?php
+    // --- 1. LOGIC HANDLER ---
+    
+    // Default values (Create Mode)
+    $isCreate = true;
+    $supporterId = '';
+    $supporterName = '';
+    $photoUrl = '';
+    $pageTitle = 'Add New Supporter';
+    $btnText = 'Save Supporter';
+
+    // Check if data exists and if we are in edit mode
+    if (isset($data)) {
+        // The boolean check
+        if (isset($data['create']) && $data['create'] === false) {
+            $isCreate = false;
+            $pageTitle = 'Edit Supporter';
+            $btnText = 'Update Supporter';
+
+            // Extract supporter details if available
+            if (isset($data['supporter']) && !empty($data['supporter'][0])) {
+                $supp = $data['supporter'][0];
+                $supporterId = $supp['id'] ?? '';
+                $supporterName = $supp['name'] ?? '';
+                $photoUrl = $supp['photoUrl'] ?? '';
+            }
+        }
+    }
+    ?>
 
     <!-- Main Card Container -->
-    <div style="background-color: #ffffff; width: 90%; max-width: 800px; padding: 40px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-top: 8px solid #FF8C00;">
-        
+    <div class="bg-white w-[90%] max-w-[900px] p-10 rounded-lg shadow-2xl border-t-8 border-[#FF8C00] my-10">
+
         <!-- Header -->
-        <div style="margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
-            <h2 style="color: #2E8B57; margin: 0; font-size: 28px;">Add / Edit Supporter</h2>
-            <p style="color: #666; margin-top: 5px; font-size: 14px;">Enter details below to generate a QR code for the supporter.</p>
+        <div class="mb-8 border-b-2 border-gray-100 pb-4">
+            <h2 class="text-[#2E8B57] m-0 text-3xl font-bold"><?php echo $pageTitle; ?></h2>
+            <p class="text-gray-600 mt-2 text-sm">Enter details below to generate a QR code for the supporter.</p>
         </div>
 
-        <!-- content Wrapper (Flexbox for Side-by-Side layout) -->
-        <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+        <!-- Content Wrapper -->
+        <div class="flex flex-col md:flex-row gap-10">
 
             <!-- LEFT COLUMN: Form Inputs -->
-            <div style="flex: 1; min-width: 300px;">
-                <form action="#" method="POST">
+            <div class="flex-1 min-w-[300px]">
+                <form action="#" method="POST" enctype="multipart/form-data">
                     
+                    <!-- Hidden ID field (Only needed for Edit) -->
+                    <?php if(!$isCreate): ?>
+                        <input type="hidden" name="id" value="<?php echo $supporterId; ?>">
+                    <?php endif; ?>
+
                     <!-- Supporter Name -->
-                    <div style="margin-bottom: 20px;">
-                        <label for="supporterName" style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Supporter Name</label>
-                        <input type="text" id="supporterName" name="supporterName" value="Alok Prakash Kharkar" placeholder="Enter full name" style="width: 100%; padding: 12px; border: 1px solid #87CEEB; border-radius: 4px; box-sizing: border-box; font-size: 14px; outline: none;">
+                    <div class="mb-6">
+                        <label for="supporterName" class="block mb-2 text-gray-800 font-bold">Supporter Name</label>
+                        <input 
+                            type="text" 
+                            id="supporterName" 
+                            name="supporterName" 
+                            value="<?php echo htmlspecialchars($supporterName); ?>" 
+                            placeholder="Enter full name" 
+                            class="w-full p-3 border border-[#87CEEB] rounded focus:outline-none focus:ring-2 focus:ring-[#2E8B57] text-gray-700 placeholder-gray-400"
+                        >
                     </div>
 
-                    <!-- Photo Upload -->
-                    <div style="margin-bottom: 25px;">
-                        <label for="photoUpload" style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Photo Upload</label>
-                        <div style="border: 2px dashed #87CEEB; padding: 20px; text-align: center; border-radius: 4px; background-color: #f0f8ff;">
-                            <input type="file" id="photoUpload" name="photoUpload" style="font-size: 14px; color: #555;">
+                    <div class="mb-8">
+                        <label for="photoUpload" class="block mb-2 text-gray-800 font-bold">Photo Upload</label>
+                        
+                        <!-- <?php if(!$isCreate && !empty($photoUrl)): ?> -->
+                            <!-- <div class="mb-3 flex items-center gap-4">
+                                <img src="<?php echo $photoUrl; ?>" alt="Current Photo" class="w-16 h-16 rounded-full object-cover border border-gray-300">
+                                <span class="text-xs text-gray-500">Current Photo</span>
+                            </div> -->
+                        <!-- <?php endif; ?> -->
+
+                        <div class="border-2 border-dashed border-[#87CEEB] bg-[#f0f8ff] p-6 text-center rounded-lg hover:bg-blue-50 transition cursor-pointer relative">
+                            <input type="file" id="photoUpload" name="photoUpload" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                            <div class="text-gray-500">
+                                <p class="text-sm">Click to upload or drag image here</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Action Buttons for Form -->
-                    <div style="display: flex; gap: 15px; margin-top: 30px;">
-                        <button type="button" style="flex: 1; padding: 12px; background-color: #4682B4; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Generate QR</button>
-                        <button type="submit" style="flex: 1; padding: 12px; background-color: #FF8C00; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Save Supporter</button>
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4 mt-8">
+                        <!-- JS Trigger for QR -->
+                        <button type="button" onclick="generateQR()" class="flex-1 py-3 px-4 bg-[#4682B4] text-white rounded font-bold hover:bg-[#36648b] transition">
+                            Generate QR
+                        </button>
+                        <!-- Submit Form -->
+                        <button type="submit" class="flex-1 py-3 px-4 bg-[#FF8C00] text-white rounded font-bold shadow-md hover:bg-orange-600 transition">
+                            <?php echo $btnText; ?>
+                        </button>
                     </div>
 
                 </form>
             </div>
 
             <!-- RIGHT COLUMN: QR Display -->
-            <div style="flex: 0 0 250px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; border-left: 1px solid #eee; padding-left: 20px;">
+            <div class="w-full md:w-[250px] flex flex-col items-center justify-start md:border-l md:border-gray-100 md:pl-8">
                 
-                <h3 style="color: #333; margin-top: 0; font-size: 18px;">QR Preview</h3>
+                <h3 class="text-gray-800 mt-0 text-xl font-bold mb-4">QR Preview</h3>
                 
-                <!-- QR Box Placeholder -->
-                <div style="width: 200px; height: 200px; background-color: #fff; border: 2px solid #2E8B57; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                    <!-- This image is a placeholder for the generated QR -->
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example" alt="QR Code" style="width: 150px; height: 150px; opacity: 0.9;">
+                <!-- QR Box -->
+                <div class="w-[200px] h-[200px] bg-white border-2 border-[#2E8B57] rounded-lg flex items-center justify-center mb-6 shadow-lg">
+                    <!-- Dynamic QR Code Image -->
+                    <img id="qrImage" 
+                         src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode($supporterName ?: 'Example'); ?>" 
+                         alt="QR Code" 
+                         class="w-[150px] h-[150px] opacity-90"
+                    >
                 </div>
 
                 <!-- Download Button -->
-                <button style="width: 200px; padding: 10px; background-color: #fff; color: #333; border: 2px solid #555; border-radius: 4px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    <!-- Simple SVG Icon for download -->
+                <button class="w-[200px] py-2.5 bg-white text-gray-700 border-2 border-gray-500 rounded font-bold hover:bg-gray-50 transition flex items-center justify-center gap-2">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                         <polyline points="7 10 12 15 17 10"></polyline>
@@ -72,6 +136,19 @@
 
         </div>
     </div>
+
+    <!-- Simple Script to update QR on button click -->
+    <script>
+        function generateQR() {
+            const name = document.getElementById('supporterName').value;
+            const qrImage = document.getElementById('qrImage');
+            if(name.trim() !== "") {
+                qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(name)}`;
+            } else {
+                alert("Please enter a supporter name first.");
+            }
+        }
+    </script>
 
 </body>
 </html>

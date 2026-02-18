@@ -1,118 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; background: linear-gradient(to bottom, #87CEEB 0%, #e0f7fa 50%, #556B2F 100%);">
+
+<body class="m-0 p-0 font-sans min-h-screen flex justify-center items-start bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
 
     <!-- Main Container -->
-    <div style="background-color: #ffffff; width: 90%; max-width: 900px; margin-top: 50px; margin-bottom: 50px; padding: 40px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-top: 8px solid #FF8C00;">
-        
+    <div class="bg-white w-[90%] max-w-[900px] mt-[50px] mb-[50px] p-10 rounded-lg shadow-2xl border-t-8 border-[#FF8C00]">
+
         <!-- Header -->
-        <div style="margin-bottom: 30px;">
-            <h1 style="color: #2E8B57; margin: 0; font-size: 32px;">Dashboard - Admin</h1>
-            <p style="color: #555; margin-top: 5px; font-size: 14px;">Manage supporters and donation records.</p>
+        <div class="mb-8 flex justify-between items-end">
+            <div>
+                <h1 class="text-[#2E8B57] m-0 text-3xl font-bold">Dashboard - Admin</h1>
+                <p class="text-gray-600 mt-1 text-sm">Manage supporters and donation records.</p>
+            </div>
         </div>
 
         <!-- Table -->
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse mb-8" id="supporterTable">
                 <thead>
-                    <tr style="background-color: #2E8B57; color: white; text-align: left;">
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd;">Sr.No</th>
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd;">Supporter</th>
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd;">Donations</th>
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd; text-align: center;">Action</th>
-                        <th style="padding: 15px; border-bottom: 2px solid #ddd; text-align: center;">View</th>
+                    <tr class="bg-[#2E8B57] text-white text-left">
+                        <th class="p-4 border-b-2 border-gray-200">Sr.No</th>
+                        <th class="p-4 border-b-2 border-gray-200">Supporter</th>
+                        <th class="p-4 border-b-2 border-gray-200">Donations</th>
+                        <!-- 2. & 3. Actions Column Merged -->
+                        <th class="p-4 border-b-2 border-gray-200 text-center w-64">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Row 1 -->
-                    <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px 15px; color: #333;">1</td>
-                        <td style="padding: 12px 15px; color: #333; font-weight: 500;">Sagar</td>
-                        <td style="padding: 12px 15px; color: #333;">3 Bicycles</td>
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" style="transform: scale(1.5); cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <button style="padding: 6px 15px; background-color: #87CEEB; color: #003366; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">View</button>
-                        </td>
-                    </tr>
-                    <!-- Row 2 -->
-                    <tr style="background-color: #f9fdf9; border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px 15px; color: #333;">2</td>
-                        <td style="padding: 12px 15px; color: #333; font-weight: 500;">Madhura</td>
-                        <td style="padding: 12px 15px; color: #333;">2 Bicycles</td>
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" style="transform: scale(1.5); cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <button style="padding: 6px 15px; background-color: #87CEEB; color: #003366; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">View</button>
-                        </td>
-                    </tr>
-                    <!-- Row 3 -->
-                    <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px 15px; color: #333;">3</td>
-                        <td style="padding: 12px 15px; color: #333; font-weight: 500;">Anjali</td>
-                        <td style="padding: 12px 15px; color: #333;">5 Bicycles</td>
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" style="transform: scale(1.5); cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <button style="padding: 6px 15px; background-color: #87CEEB; color: #003366; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">View</button>
-                        </td>
-                    </tr>
-                    <!-- Row 4 -->
-                    <tr style="background-color: #f9fdf9; border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px 15px; color: #333;">4</td>
-                        <td style="padding: 12px 15px; color: #333; font-weight: 500;">Rahul</td>
-                        <td style="padding: 12px 15px; color: #333;">1 Bicycle</td>
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" style="transform: scale(1.5); cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <button style="padding: 6px 15px; background-color: #87CEEB; color: #003366; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">View</button>
-                        </td>
-                    </tr>
-                    <!-- Row 5 -->
-                    <tr style="border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px 15px; color: #333;">5</td>
-                        <td style="padding: 12px 15px; color: #333; font-weight: 500;">Priya</td>
-                        <td style="padding: 12px 15px; color: #333;">4 Bicycles</td>
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <input type="checkbox" style="transform: scale(1.5); cursor: pointer;">
-                        </td>
-                        <td style="padding: 12px 15px; text-align: center;">
-                            <button style="padding: 6px 15px; background-color: #87CEEB; color: #003366; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">View</button>
-                        </td>
-                    </tr>
+                <tbody id="tableBody">
+                    <?php
+                    $i = 1;
+                    // Check if variable exists to prevent PHP errors in this raw HTML view
+                    if (isset($supporters) && is_array($supporters)) {
+                        foreach ($supporters as $key => $value) {
+                    ?>
+                            <!-- Added class 'data-row' for jQuery targeting -->
+                            <tr class="data-row border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="p-3 text-gray-800"><?php echo $i; ?></td>
+                                <td class="p-3 text-gray-800 font-medium"><?php echo $value["name"]; ?></td>
+                                <td class="p-3 text-gray-800"><?php echo $value["total_donation"]; ?></td>
+
+                                <!-- 3. Edit & Delete moved here next to View -->
+                                <td class="p-3 text-center flex justify-center gap-2">
+                                    <a href="<?php echo base_url('admin/recipients/' . $value["id"]); ?>"
+                                        class="px-3 py-1.5 bg-[#87CEEB] text-[#003366] rounded text-sm font-bold hover:brightness-95 transition no-underline inline-block">
+                                        View
+                                    </a>
+                                    <a href="<?php echo base_url('admin/add_supporters/' . $value["id"]); ?>"
+                                        class="px-3 py-1.5 bg-[#4682B4] text-white rounded text-sm font-bold hover:brightness-95 transition cursor-pointer border-none">
+                                        Edit
+                                    </a>
+                                    <button class="px-3 py-1.5 bg-[#696969] text-white rounded text-sm font-bold hover:brightness-95 transition cursor-pointer border-none">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                    <?php
+                            $i++;
+                        }
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
 
         <!-- Footer Actions (Buttons + Pagination) -->
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-            
-            <!-- Action Buttons -->
-            <div style="display: flex; gap: 10px;">
-                <button style="padding: 10px 20px; background-color: #FF8C00; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Add</button>
-                <button style="padding: 10px 20px; background-color: #4682B4; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Edit</button>
-                <button style="padding: 10px 20px; background-color: #696969; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Delete</button>
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-5">
+
+            <!-- Global Action -->
+            <div>
+                <button class="px-5 py-2.5 bg-[#FF8C00] text-white rounded font-bold shadow-sm hover:bg-orange-600 transition cursor-pointer border-none">
+                    Add New
+                </button>
             </div>
 
-            <!-- Pagination -->
-            <div style="font-weight: bold; color: #333;">
-                <span style="cursor: pointer; padding: 5px 10px; color: #FF8C00;">1</span>
-                <span style="cursor: pointer; padding: 5px 10px;">2</span>
-                <span style="cursor: pointer; padding: 5px 10px;">3</span>
+            <!-- 4. Pagination & Select Input -->
+            <div class="flex items-center gap-4 text-gray-800 font-bold">
+
+                <!-- Rows Per Page Select -->
+                <div class="flex items-center gap-2 text-sm font-normal">
+                    <label for="rowsPerPage">Rows:</label>
+                    <select id="rowsPerPage" class="border border-gray-300 rounded p-1 text-sm bg-white focus:outline-none focus:border-[#2E8B57]">
+                        <option value="2">2</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                        <option value="all">All</option>
+                    </select>
+                </div>
+
+                <!-- Page Numbers -->
+                <div id="paginationNumbers" class="flex gap-1">
+                    <!-- jQuery will inject buttons here -->
+                </div>
             </div>
 
         </div>
 
     </div>
 
+    <!-- jQuery Logic for Pagination -->
+    <script>
+        $(document).ready(function() {
+            // Cache DOM elements
+            const $tableBody = $('#tableBody');
+            const $rows = $tableBody.find('tr');
+            const $select = $('#rowsPerPage');
+            const $paginationContainer = $('#paginationNumbers');
+
+            let currentPage = 1;
+
+            // Function to render table based on pagination settings
+            function renderTable() {
+                const limitVal = $select.val();
+                const totalRows = $rows.length;
+
+                // Handle "All" selection
+                if (limitVal === 'all') {
+                    $rows.show();
+                    $paginationContainer.empty();
+                    return;
+                }
+
+                const limit = parseInt(limitVal);
+                const totalPages = Math.ceil(totalRows / limit);
+
+                // Reset to page 1 if current page is out of bounds
+                if (currentPage > totalPages && totalPages > 0) {
+                    currentPage = 1;
+                }
+
+                // Hide all rows initially
+                $rows.hide();
+
+                // Calculate range
+                const start = (currentPage - 1) * limit;
+                const end = start + limit;
+
+                // Show rows within range
+                $rows.slice(start, end).show();
+
+                // Generate pagination buttons
+                renderPagination(totalPages);
+            }
+
+            // Function to create pagination buttons
+            function renderPagination(totalPages) {
+                $paginationContainer.empty();
+
+                // Don't show numbers if only 1 page (optional, removed for consistency)
+                // if (totalPages <= 1) return; 
+
+                for (let i = 1; i <= totalPages; i++) {
+                    // Determine styles for active vs inactive buttons
+                    let classes = "px-3 py-1 rounded cursor-pointer transition select-none ";
+                    if (i === currentPage) {
+                        classes += "bg-[#FF8C00] text-white";
+                    } else {
+                        classes += "hover:bg-gray-200 text-gray-700";
+                    }
+
+                    const $btn = $('<span>', {
+                        text: i,
+                        class: classes,
+                        click: function() {
+                            currentPage = i;
+                            renderTable();
+                        }
+                    });
+
+                    $paginationContainer.append($btn);
+                }
+            }
+
+            // Event listener for Select change
+            $select.on('change', function() {
+                currentPage = 1; // Reset to first page when changing view limit
+                renderTable();
+            });
+
+            // Initial render
+            renderTable();
+        });
+    </script>
+
 </body>
+
 </html>

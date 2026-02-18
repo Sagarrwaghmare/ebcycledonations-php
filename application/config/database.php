@@ -78,12 +78,18 @@ $query_builder = TRUE;
 // DB Username: hnvvjwrrdp
 // DB Password: 8uszwHmyJH
 
+
+// 'hostname' => '134.209.150.193',
+// 'username' => 'hnvvjwrrdp',
+// 'password' => '8uszwHmyJH',
+// 'database' => 'hnvvjwrrdp',
+
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '134.209.150.193',
-	'username' => 'hnvvjwrrdp',
-	'password' => '8uszwHmyJH',
-	'database' => 'hnvvjwrrdp',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'ebcycledonations',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

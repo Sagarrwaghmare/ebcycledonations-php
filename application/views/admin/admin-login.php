@@ -5,39 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(to bottom, #87CEEB 0%, #e0f7fa 50%, #556B2F 100%);">
+<body class="m-0 p-0 font-sans h-screen flex justify-center items-center bg-gradient-to-b from-sky-400 via-cyan-100 to-green-900">
 
     <!-- Main Card Container -->
-    <div style="background-color: #ffffff; width: 100%; max-width: 400px; padding: 40px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-top: 8px solid #FF8C00;">
+    <div class="bg-white w-full max-w-md p-10 rounded-lg shadow-2xl border-t-8 border-orange-500">
         
         <!-- Title -->
-        <h2 style="text-align: center; color: #2E8B57; margin-top: 0; margin-bottom: 30px; font-size: 28px;">Admin Login</h2>
+        <h2 class="text-center text-green-700 mt-0 mb-8 text-3xl">Admin Login</h2>
 
         <!-- Login Form -->
-        <form action="#" method="POST">
-            
+        <!-- <form action="#" method="POST"> -->
+            <?php echo form_open('admin/login_submit');?>
             <!-- Username Field -->
-            <div style="margin-bottom: 20px;">
-                <label for="username" style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter username" style="width: 100%; padding: 12px; border: 1px solid #87CEEB; border-radius: 4px; box-sizing: border-box; font-size: 14px; outline: none;">
+            <div class="mb-5">
+                <label for="username" class="block mb-2 text-gray-800 font-semibold">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter username" class="w-full p-3 border border-sky-400 rounded-md box-border text-sm outline-none">
             </div>
 
             <!-- Password Field -->
-            <div style="margin-bottom: 30px;">
-                <label for="password" style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter password" style="width: 100%; padding: 12px; border: 1px solid #87CEEB; border-radius: 4px; box-sizing: border-box; font-size: 14px; outline: none;">
+            <div class="mb-8">
+                <label for="password" class="block mb-2 text-gray-800 font-semibold">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter password" class="w-full p-3 border border-sky-400 rounded-md box-border text-sm outline-none">
             </div>
 
             <!-- Buttons Area -->
-            <div style="display: flex; justify-content: space-between; gap: 15px;">
+            <div class="flex justify-between gap-4">
                 
                 <!-- Reset Button -->
-                <button type="reset" style="flex: 1; padding: 12px; background-color: #5F9EA0; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; transition: opacity 0.3s;">
+                <button type="reset" class="flex-1 p-3 bg-cyan-600 text-white border-none rounded-md text-base cursor-pointer transition-opacity duration-300 hover:opacity-90">
                     Reset
                 </button>
 
                 <!-- Login Button -->
-                <button type="submit" style="flex: 1; padding: 12px; background-color: #FF8C00; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                <button type="submit" class="flex-1 p-3 bg-orange-500 text-white border-none rounded-md text-base font-bold cursor-pointer">
                     Login
                 </button>
             </div>

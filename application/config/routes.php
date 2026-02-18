@@ -67,21 +67,22 @@ $route['admin'] = 'admin';
 // view supporters
 $route['supporters'] = 'admin/supporters';
 // add/edit supporters
-$route['supporters/(:any)'] = 'admin/add_supporters';
+$route['supporters/(:any)'] = 'admin/add_supporters/$1';
 
 
-// view recipients,
+// view recipients all recipients or recipient from a user
 $route['recipients'] = 'admin/recipients';
-// add/edit recipient
-$route['recipients/(:any)'] = 'admin/add_recipients';
+$route['recipients/(:any)'] = 'admin/recipients/$1';
 
+// add/edit recipient
+$route['addrecipient/(:any)'] = 'admin/add_recipients/$1';
 
 
 // USER VIEW (mostly mobile)
 // view supporter
-$route['supporter/(:any)'] = 'main/supporter';
+$route['supporter/(:any)'] = 'main/supporter/$1';
 // view donation
-$route['recipient/(:any)'] = 'main/recipient';
+$route['recipient/(:any)'] = 'main/recipient/$1';
 
 
 
