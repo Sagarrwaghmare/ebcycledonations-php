@@ -1,15 +1,17 @@
-<?php 
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class donation_Model extends CI_Model{
+class donation_Model extends CI_Model
+{
 
-    public function index(){}
+    public function index() {}
 
-    public function get_all(){
+    public function get_all()
+    {
         $query = $this->db->get('donation');
         return $query->result_array();
     }
-    
+
 
     public function get_by_id($id)
     {
@@ -17,33 +19,33 @@ class donation_Model extends CI_Model{
         return $query->result_array();
     }
 
-    public function get_by_user_id($id){
-        $query = $this->db->get_where('donation',array('UserId'=>$id));
+    public function get_by_user_id($id)
+    {
+        $query = $this->db->get_where('donation', array('UserId' => $id));
         return $query->result_array();
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $data = array(
-            'id'=>$id
+            'id' => $id
         );
-        $this->db->delete('donation',$data);
+        $this->db->delete('donation', $data);
+
+        return TRUE;
     }
 
-    public function add($name,$email){
-        $data = array(
-            'name'=>$name,
-            'email'=>$email,
-        );
-        $this->db->insert('donation',$data);
+    public function add($data)
+    {
+        $this->db->insert('donation', $data);
+        return TRUE;
     }
-    public function update($id,$name){
-        $array = array(
-            'name' => $name,
-        );
-        $this->db->set($array);
+    public function update($id, $data)
+    { 
+        $this->db->set($data);
         $this->db->where('id', $id);
         $this->db->update('donation');
-    }
 
+        return TRUE;
+    }
 }
-?>

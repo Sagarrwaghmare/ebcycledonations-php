@@ -21,6 +21,7 @@
     $standard = '';
     $location = '';
     $photoUrl = '';
+    $userId = $data["userId"];
     
     $pageTitle = 'Recipient >> Add';
     $btnText = 'Add Recipient';
@@ -36,8 +37,8 @@
 
             // Extract values if available
             // Note: The array key in your dump is 'supporter', containing recipient data
-            if (isset($data['supporter']) && !empty($data['supporter'][0])) {
-                $rec = $data['supporter'][0];
+            if (isset($data['recipient']) && !empty($data['recipient'][0])) {
+                $rec = $data['recipient'][0];
                 $recipientId = $rec['id'] ?? '';
                 $studentName = $rec['studentName'] ?? '';
                 $schoolName = $rec['schoolName'] ?? '';
@@ -60,7 +61,7 @@
             </h3>
         </div>
 
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="<?php echo base_url("admin/add_update_recipient/".$recipientId);?>" method="POST" enctype="multipart/form-data">
             
             <!-- Hidden ID for Edit Mode -->
             <?php if(!$isCreate): ?>
@@ -75,11 +76,11 @@
                     
                     <!-- Recipient Name -->
                     <div class="mb-5">
-                        <label for="recipientName" class="block mb-2 text-gray-800 font-bold">Recipient Name</label>
+                        <label for="studentName" class="block mb-2 text-gray-800 font-bold">Recipient Name</label>
                         <input 
                             type="text" 
-                            id="recipientName" 
-                            name="recipientName" 
+                            id="studentName" 
+                            name="studentName" 
                             value="<?php echo htmlspecialchars($studentName); ?>"
                             placeholder="e.g. Priya Mahadik" 
                             class="w-full p-3 border border-[#87CEEB] rounded focus:outline-none focus:ring-2 focus:ring-[#2E8B57] text-gray-700"
@@ -88,11 +89,11 @@
 
                     <!-- School -->
                     <div class="mb-5">
-                        <label for="school" class="block mb-2 text-gray-800 font-bold">School</label>
+                        <label for="schoolName" class="block mb-2 text-gray-800 font-bold">School</label>
                         <input 
                             type="text" 
-                            id="school" 
-                            name="school" 
+                            id="schoolName" 
+                            name="schoolName" 
                             value="<?php echo htmlspecialchars($schoolName); ?>"
                             placeholder="e.g. Saraswati School" 
                             class="w-full p-3 border border-[#87CEEB] rounded focus:outline-none focus:ring-2 focus:ring-[#2E8B57] text-gray-700"
@@ -120,6 +121,30 @@
                             id="location" 
                             name="location" 
                             value="<?php echo htmlspecialchars($location); ?>"
+                            placeholder="Map coordinates or Address" 
+                            class="w-full p-3 border border-[#87CEEB] rounded focus:outline-none focus:ring-2 focus:ring-[#2E8B57] text-gray-700"
+                        >
+                    </div>
+
+                    <div class="mb-5 hidden">
+                        <label for="userId" class="block mb-2 text-gray-800 font-bold">User Id</label>
+                        <input 
+                            type="number" 
+                            id="userId" 
+                            name="userId" 
+                            value="<?php echo htmlspecialchars($userId); ?>"
+                            placeholder="Map coordinates or Address" 
+                            class="w-full p-3 border border-[#87CEEB] rounded focus:outline-none focus:ring-2 focus:ring-[#2E8B57] text-gray-700"
+                        >
+                    </div>
+
+                    <div class="mb-5  hidden">
+                        <label for="photoUrl" class="block mb-2 text-gray-800 font-bold">Photo Url</label>
+                        <input 
+                            type="text" 
+                            id="photoUrl" 
+                            name="photoUrl" 
+                            value="<?php echo "example3.jpg"; ?>"
                             placeholder="Map coordinates or Address" 
                             class="w-full p-3 border border-[#87CEEB] rounded focus:outline-none focus:ring-2 focus:ring-[#2E8B57] text-gray-700"
                         >

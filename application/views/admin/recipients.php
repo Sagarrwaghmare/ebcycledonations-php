@@ -18,7 +18,7 @@
             <h1 class="text-[#2E8B57] m-0 text-3xl font-bold">View Recipient</h1>
             <!-- PHP Variable check for display safety -->
             <h3 class="text-gray-600 mt-2 text-lg font-normal">
-                Supporter: <span class="text-[#FF8C00] font-bold">Sagar Waghmare</span>
+                Supporter: <span class="text-[#FF8C00] font-bold"><?php echo $supporter[0]['name'];?></span>
             </h3>
         </div>
 
@@ -78,13 +78,15 @@
                             <!-- Actions -->
                             <td class="p-4 text-center">
                                 <div class="flex flex-col gap-2 justify-center h-full pt-6">
-                                    <a href="<?php echo base_url('admin/add_recipients/'. $value["id"])?>"
+                                    <a href="<?php echo base_url('admin/add_recipients/'. $supporterId. '/'. $value["id"])?>"
                                        class="px-4 py-2 bg-[#4682B4] text-white rounded font-bold hover:brightness-95 transition text-sm text-center no-underline">
                                         Edit
                                     </a>
-                                    <button class="px-4 py-2 bg-[#CD5C5C] text-white rounded font-bold hover:brightness-95 transition text-sm cursor-pointer border-none">
+                                    <a 
+                                    href="<?php echo base_url("admin/delete_recipient/".$supporterId.'/'.$value['id']);?>"
+                                    class="px-4 py-2 bg-[#CD5C5C] text-white rounded font-bold hover:brightness-95 transition text-sm cursor-pointer border-none">
                                         Delete
-                                    </button>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -104,9 +106,9 @@
 
             <!-- Add Recipient Button -->
             <div>
-                <button class="px-6 py-3 bg-[#FF8C00] text-white rounded-md font-bold shadow-md hover:bg-orange-600 transition cursor-pointer border-none text-base">
+                <a href="<?php echo base_url('admin/add_recipients/'.$supporterId);?>" class="px-6 py-3 bg-[#FF8C00] text-white rounded-md font-bold shadow-md hover:bg-orange-600 transition cursor-pointer border-none text-base">
                     + Add Recipient
-                </button>
+                </a>
             </div>
 
             <!-- Pagination & Select Input -->

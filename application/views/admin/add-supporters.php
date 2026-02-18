@@ -77,12 +77,12 @@
                     <div class="mb-8">
                         <label for="photoUpload" class="block mb-2 text-gray-800 font-bold">Photo Upload</label>
                         
-                        <!-- <?php if(!$isCreate && !empty($photoUrl)): ?> -->
-                            <!-- <div class="mb-3 flex items-center gap-4">
+                        <?php if(!$isCreate && !empty($photoUrl)): ?>
+                            <div class="mb-3 flex items-center gap-4">
                                 <img src="<?php echo $photoUrl; ?>" alt="Current Photo" class="w-16 h-16 rounded-full object-cover border border-gray-300">
                                 <span class="text-xs text-gray-500">Current Photo</span>
-                            </div> -->
-                        <!-- <?php endif; ?> -->
+                            </div>
+                        <?php endif; ?>
 
                         <div class="border-2 border-dashed border-[#87CEEB] bg-[#f0f8ff] p-6 text-center rounded-lg hover:bg-blue-50 transition cursor-pointer relative">
                             <input type="file" id="photoUpload" name="photoUpload" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">

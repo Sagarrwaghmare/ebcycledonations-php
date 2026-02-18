@@ -9,6 +9,8 @@ class Admin  extends CI_Controller
 
         $this->load->library(['form_validation', 'session']);
         $this->load->helper(['url', 'form']);
+        $this->load->model('User_Model');
+        $this->load->model('Donation_Model');
 
 
 
@@ -40,14 +42,18 @@ class Admin  extends CI_Controller
     public function recipients($supporter_id = null)
     {
         $this->load->model('Donation_Model');
+        $this->load->model('User_Model');
 
 
         if ($supporter_id == null) {
             $data['recipients'] = $this->Donation_Model->get_all();
+            echo "no id";
             // show all recipient
         } else {
             // show recipient by id
             $data['recipients'] = $this->Donation_Model->get_by_user_id($supporter_id);
+            $data['supporterId'] = $supporter_id;
+            $data['supporter'] = $this->User_Model->get_by_id($supporter_id);
         }
         $this->load->view('base/base');
 
@@ -70,17 +76,18 @@ class Admin  extends CI_Controller
         $this->load->view('admin/add-supporters', $data);
     }
 
-    public function add_recipients($id = null)
+    public function add_recipients($supporter_id, $id = null)
     {
 
         $this->load->model('Donation_model');
         if ($id == null) {
             // add
-            $data["data"] = array("create" => TRUE, "supporter" => null);
+            $data["data"] = array("create" => TRUE, "recipient" => null, "userId" => $supporter_id);
         } else {
             // update
-            $data["data"] = array("create" => FALSE, "supporter" => $this->Donation_model->get_by_id($id));
+            $data["data"] = array("create" => FALSE, "recipient" => $this->Donation_model->get_by_id($id), "userId" => $supporter_id);
         }
+        // var_dump($data);
         $this->load->view('base/base');
 
         $this->load->view('admin/add-recipients', $data);
@@ -105,5 +112,46 @@ class Admin  extends CI_Controller
             $this->session->set_userdata($user_data);
             redirect('admin/supporters');
         }
+    }
+
+    public function add_update_recipient($recipient_id = null)
+    {
+        $this->load->model('Donation_Model');
+        // studentName, standard, schoolName, location, userId
+        var_dump($recipient_id, $this->input->post());
+
+        //  photoUrl
+        if ($recipient_id == null) {
+            // create
+            if ($this->Donation_Model->add($this->input->post())) {
+                echo "Record Inserted";
+            } else {
+                echo "Record Insertion Failed";
+            }
+        } else {
+            // update
+            if ($this->Donation_Model->update($recipient_id, $this->input->post())) {
+                echo "Record Updated";
+            } else {
+                echo "Record Updation Failed";
+            }
+        }
+
+        redirect("admin/recipients/".$this->input->post("userId"));
+    }
+    public function delete_recipient($supporter_id, $recipient_id){
+
+        $this->load->model('Donation_Model');
+
+        if($this->Donation_Model->delete($recipient_id)){
+            echo "record deleted";
+
+        }else{
+            echo "record deletion failed";
+        }
+
+        
+
+        redirect("admin/recipients/".$supporter_id);
     }
 }
