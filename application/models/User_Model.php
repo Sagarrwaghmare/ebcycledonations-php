@@ -41,23 +41,18 @@ class User_Model extends CI_Model
         $this->db->delete('user', $data);
     }
 
-    public function add($username, $email, $password)
+    public function add($data)
     {
-        $data = array(
-            'username' => $username,
-            'email' => $email,
-            'password' => $password,
-        );
         $this->db->insert('user', $data);
+        return TRUE;
     }
 
-    public function update($id, $name)
-    {
-        $array = array(
-            'name' => $name,
-        );
-        $this->db->set($array);
+    public function update($id, $data)
+    { 
+        $this->db->set($data);
         $this->db->where('id', $id);
         $this->db->update('user');
+        return TRUE;
+
     }
 }

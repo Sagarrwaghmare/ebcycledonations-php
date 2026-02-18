@@ -137,21 +137,57 @@ class Admin  extends CI_Controller
             }
         }
 
-        redirect("admin/recipients/".$this->input->post("userId"));
+        redirect("admin/recipients/" . $this->input->post("userId"));
     }
-    public function delete_recipient($supporter_id, $recipient_id){
+    public function add_update_supporter($supporter_id = null)
+    {
+        var_dump($supporter_id, $this->input->post());
+        $this->load->model('User_Model');
+        if ($supporter_id == null) {
+            // create
+            if ($this->User_Model->add($this->input->post())) {
+                echo "Record Inserted";
+            } else {
+                echo "Record Insertion Failed";
+            }
+        } else {
+            // update
+            if ($this->User_Model->update($supporter_id, $this->input->post())) {
+                echo "Record Updated";
+            } else {
+                echo "Record Updation Failed";
+            }
+        }
+
+        redirect("admin/supporters");
+    }
+    public function delete_recipient($supporter_id, $recipient_id)
+    {
 
         $this->load->model('Donation_Model');
 
-        if($this->Donation_Model->delete($recipient_id)){
+        if ($this->Donation_Model->delete($recipient_id)) {
             echo "record deleted";
-
-        }else{
+        } else {
             echo "record deletion failed";
         }
 
-        
 
-        redirect("admin/recipients/".$supporter_id);
+
+        redirect("admin/recipients/" . $supporter_id);
+    }
+
+    public function delete_supporter($supporter_id)
+    {
+
+        $this->load->model('User_Model');
+
+        if ($this->User_Model->delete($supporter_id)) {
+            echo "record deleted";
+        } else {
+            echo "record deletion failed";
+        }
+        
+        redirect("admin/supporters");
     }
 }

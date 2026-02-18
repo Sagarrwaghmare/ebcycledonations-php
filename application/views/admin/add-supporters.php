@@ -54,21 +54,33 @@
 
             <!-- LEFT COLUMN: Form Inputs -->
             <div class="flex-1 min-w-[300px]">
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <form action="<?php echo base_url('admin/add_update_supporter/'.$supporterId)?>" method="POST" enctype="multipart/form-data">
                     
                     <!-- Hidden ID field (Only needed for Edit) -->
-                    <?php if(!$isCreate): ?>
-                        <input type="hidden" name="id" value="<?php echo $supporterId; ?>">
-                    <?php endif; ?>
+                    <!-- <?php if(!$isCreate): ?> -->
+                        <!-- <input type="hidden" name="id" value="<?php echo $supporterId; ?>"> -->
+                    <!-- <?php endif; ?> -->
 
                     <!-- Supporter Name -->
                     <div class="mb-6">
-                        <label for="supporterName" class="block mb-2 text-gray-800 font-bold">Supporter Name</label>
+                        <label for="name" class="block mb-2 text-gray-800 font-bold">Supporter Name</label>
                         <input 
                             type="text" 
-                            id="supporterName" 
-                            name="supporterName" 
+                            id="name" 
+                            name="name" 
                             value="<?php echo htmlspecialchars($supporterName); ?>" 
+                            placeholder="Enter full name" 
+                            class="w-full p-3 border border-[#87CEEB] rounded focus:outline-none focus:ring-2 focus:ring-[#2E8B57] text-gray-700 placeholder-gray-400"
+                        >
+                    </div>
+
+                    <div class="mb-6 hidden">
+                        <label for="photoUrl" class="block mb-2 text-gray-800 font-bold">Photo Name</label>
+                        <input 
+                            type="text" 
+                            id="photoUrl" 
+                            name="photoUrl" 
+                            value="<?php echo "example1.jpg"; ?>" 
                             placeholder="Enter full name" 
                             class="w-full p-3 border border-[#87CEEB] rounded focus:outline-none focus:ring-2 focus:ring-[#2E8B57] text-gray-700 placeholder-gray-400"
                         >

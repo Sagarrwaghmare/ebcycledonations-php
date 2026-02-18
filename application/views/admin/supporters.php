@@ -56,9 +56,9 @@
                                         class="px-3 py-1.5 bg-[#4682B4] text-white rounded text-sm font-bold hover:brightness-95 transition cursor-pointer border-none">
                                         Edit
                                     </a>
-                                    <button class="px-3 py-1.5 bg-[#696969] text-white rounded text-sm font-bold hover:brightness-95 transition cursor-pointer border-none">
+                                    <a href="<?php echo base_url('admin/delete_supporter/'. $value["id"])?>" class="px-3 py-1.5 bg-[#696969] text-white rounded text-sm font-bold hover:brightness-95 transition cursor-pointer border-none">
                                         Delete
-                                    </button>
+                                    </a >
                                 </td>
                             </tr>
                     <?php
@@ -75,9 +75,9 @@
 
             <!-- Global Action -->
             <div>
-                <button class="px-5 py-2.5 bg-[#FF8C00] text-white rounded font-bold shadow-sm hover:bg-orange-600 transition cursor-pointer border-none">
+                <a href="<?php echo base_url("admin/add_supporters/");?>" class="px-5 py-2.5 bg-[#FF8C00] text-white rounded font-bold shadow-sm hover:bg-orange-600 transition cursor-pointer border-none">
                     Add New
-                </button>
+                </a>
             </div>
 
             <!-- 4. Pagination & Select Input -->
