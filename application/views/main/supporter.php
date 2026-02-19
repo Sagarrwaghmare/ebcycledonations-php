@@ -63,16 +63,59 @@ if (isset($supporter) && !empty($supporter[0])) {
                 // echo $key;
             ?>
                 <!-- Cycle 0 (Left) -->
+                <!-- style="position: absolute; bottom: 0%; left: <?php echo $position; ?>%; z-index: 5; width: 35%;" -->
 
                 <a 
                 href="<?php echo base_url('main/recipient/'.$supporter_id.'/'.$value['id']);?>"
-                style="position: absolute; bottom: 0%; left: <?php echo $position; ?>%; z-index: 5; width: 35%;"
+                style="position: absolute; bottom: 16%; left: 63%; z-index: 5; width: 25%;"
                 class=" cursor-pointer text-white hover:text-gray-300"
                 >
                     <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" style="width: 100%; display: block; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));">
-                    <h2 class=" text-xs  text-center "><?php echo $value['studentName'];?></h2>
+                    <h2 class=" text-xs  text-center "><?php echo $value['studentName'];?> 1</h2>
                 </a>
+
+                
+                <a 
+                href="<?php echo base_url('main/recipient/'.$supporter_id.'/'.$value['id']);?>"
+                style="position: absolute; bottom: 16%; left: 30%; z-index: 5; width: 25%;"
+                class=" cursor-pointer text-white hover:text-gray-300"
+                >
+                    <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" style="width: 100%; display: block; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));">
+                    <h2 class=" text-xs  text-center "><?php echo $value['studentName'];?> 2</h2>
+                </a>
+
+                
+                <a 
+                href="<?php echo base_url('main/recipient/'.$supporter_id.'/'.$value['id']);?>"
+                style="position: absolute; bottom: 2%; left: 47%; z-index: 5; width: 30%;"
+                class=" cursor-pointer text-white hover:text-gray-300"
+                >
+                    <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" style="width: 100%; display: block; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));">
+                    <h2 class=" text-xs  text-center "><?php echo $value['studentName'];?> 3</h2>
+                </a>
+
+                
+                <a 
+                href="<?php echo base_url('main/recipient/'.$supporter_id.'/'.$value['id']);?>"
+                style="position: absolute; bottom: 30%; left: 58%; z-index: 5; width: 18%;"
+                class=" cursor-pointer text-white hover:text-gray-300"
+                >
+                    <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" style="width: 100%; display: block; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));">
+                    <h2 class=" text-xs  text-center "><?php echo $value['studentName'];?> 4</h2>
+                </a>
+
+                
+                <a 
+                href="<?php echo base_url('main/recipient/'.$supporter_id.'/'.$value['id']);?>"
+                style="position: absolute; bottom: 25%; left: 5%; z-index: 5; width: 18%;"
+                class=" cursor-pointer text-white hover:text-gray-300"
+                >
+                    <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" style="width: 100%; display: block; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));">
+                    <h2 class=" text-xs  text-center "><?php echo $value['studentName'];?> 5</h2>
+                </a>
+                
             <?php
+            return;
             $i++;
             }
 
