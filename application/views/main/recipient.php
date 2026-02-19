@@ -1,22 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipient Details</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #222; min-height: 100vh; display: flex; justify-content: center; align-items: center;">
 
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #222; min-height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <?php
+
+    $supporter_name = "John Pagar";
+    $recipient_name = "John Wick";
+
+    $schoolName = "Pune Uni";
+    $standard = "3rd";
+
+    $location = "Pune";
+    $photoUrlName = "example1.jpg";
+
+
+    if (isset($supporter) && !empty($supporter[0])) {
+        $supporter_name = $supporter[0]["name"];
+    }
+
+
+    if (isset($recipient) && !empty($recipient[0])) {
+        // $supporter_name = $supporter[0]["name"];
+        $recipient_name = $recipient[0]["studentName"];
+        $schoolName = $recipient[0]["schoolName"];
+        $standard = $recipient[0]["standard"];
+        $location = $recipient[0]["location"];
+        $photoUrlName = $recipient[0]["photoUrl"];
+    }
+
+
+
+
+    ?>
     <!-- 
       Responsive Container:
       - Mobile: Full width, min-height 100vh.
       - Desktop: Centered card, max-width 500px.
     -->
     <div style="width: 100%; max-width: 500px; background-color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; position: relative;">
-        
+
         <!-- Header Strip -->
         <div style="background-color: #FF8C00; padding: 15px; text-align: center;">
-             <h2 style="color: white; margin: 0; font-size: 18px;">Recipient Details</h2>
+            <h2 style="color: white; margin: 0; font-size: 18px;">Recipient Details</h2>
         </div>
 
         <!-- Scrollable Content -->
@@ -25,29 +56,29 @@
             <!-- Title -->
             <div style="text-align: center; margin-bottom: 20px;">
                 <p style="color: #666; font-size: 14px; margin: 0;">Bicycle supported by</p>
-                <h2 style="color: #2E8B57; margin: 5px 0 0 0; font-size: 24px;">Sagar Waghmare</h2>
+                <h2 style="color: #2E8B57; margin: 5px 0 0 0; font-size: 24px;"><?php echo $supporter_name; ?></h2>
             </div>
 
             <!-- Event Photo (Rectangular & Large) -->
             <div style="margin-bottom: 25px;">
                 <div style="width: 100%; height: 250px; background-color: #f0f0f0; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
                     <!-- Placeholder image representing the event photo -->
-                    <img src="https://placehold.co/600x400/87CEEB/ffffff?text=Event+Photo\n(Student+with+Cycle)" alt="Event Photo" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="<?php echo base_url('assets/images/' . $photoUrlName); ?>" alt="Event Photo" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
             </div>
 
             <!-- Recipient Info Card -->
             <div style="background-color: #f9fdf9; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0; margin-bottom: 20px;">
-                <h3 style="margin: 0 0 10px 0; color: #333; font-size: 20px;">Priya Mahadik</h3>
-                <p style="margin: 5px 0; color: #555;"><strong>School:</strong> Saraswati School, Raigad</p>
-                <p style="margin: 5px 0; color: #555;"><strong>Standard:</strong> 3rd Standard</p>
+                <h3 style="margin: 0 0 10px 0; color: #333; font-size: 20px;"><?php echo $supporter_name; ?></h3>
+                <p style="margin: 5px 0; color: #555;"><strong>School:</strong> <?php echo $schoolName; ?></p>
+                <p style="margin: 5px 0; color: #555;"><strong>Standard:</strong> <?php echo $standard; ?> Standard</p>
             </div>
 
             <!-- Map Location -->
             <div style="flex: 1; min-height: 180px; margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #555; font-size: 14px;">Location</label>
                 <div style="width: 100%; height: 200px; border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
-                    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Raigad,Maharashtra&t=&z=12&ie=UTF8&iwloc=&output=embed"></iframe>
+                    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=<?php echo $location; ?>&t=&z=12&ie=UTF8&iwloc=&output=embed"></iframe>
                 </div>
             </div>
 
@@ -66,4 +97,5 @@
     </div>
 
 </body>
+
 </html>

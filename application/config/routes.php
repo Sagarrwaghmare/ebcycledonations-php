@@ -82,7 +82,7 @@ $route['addrecipient/(:any)'] = 'admin/add_recipients/$1';
 // view supporter
 $route['supporter/(:any)'] = 'main/supporter/$1';
 // view donation
-$route['recipient/(:any)'] = 'main/recipient/$1';
+$route['recipient/(:any)/(:any)'] = 'main/recipient/$1/$2';
 
 
 
