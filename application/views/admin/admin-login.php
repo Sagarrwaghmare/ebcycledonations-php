@@ -27,7 +27,10 @@
                 <label for="password" class="block mb-2 text-gray-800 font-semibold">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter password" class="w-full p-3 border border-sky-400 rounded-md box-border text-sm outline-none">
             </div>
-
+            
+            <div class="mb-4 text-red-500 text-md">
+                <p><?php echo $this->session->flashdata("error");?></p>
+            </div>
             <!-- Buttons Area -->
             <div class="flex justify-between gap-4">
                 

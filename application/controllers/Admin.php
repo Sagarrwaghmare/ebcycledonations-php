@@ -23,6 +23,9 @@ class Admin  extends CI_Controller
     // Pages
     public function index()
     {
+        if ($this->session->userdata('logged_in')) {
+        redirect("admin/supporters");
+        }
         $this->load->view('base/base');
         $this->load->view('admin/admin-login');
     }
@@ -79,14 +82,14 @@ class Admin  extends CI_Controller
     {
 
         $this->load->model('Donation_Model');
+        $this->load->model('User_Model');
         if ($id == null) {
             // add
-            $data["data"] = array("create" => TRUE, "recipient" => null, "userId" => $supporter_id);
+            $data["data"] = array("create" => TRUE, "recipient" => null, "userId" => $supporter_id, "user_info" => $this->User_Model->get_by_id($supporter_id));
         } else {
             // update
-            $data["data"] = array("create" => FALSE, "recipient" => $this->Donation_Model->get_by_id($id), "userId" => $supporter_id);
+            $data["data"] = array("create" => FALSE, "recipient" => $this->Donation_Model->get_by_id($id), "userId" => $supporter_id, "user_info" => $this->User_Model->get_by_id($supporter_id));
         }
-        // var_dump($data);
         $this->load->view('base/base');
 
         $this->load->view('admin/add-recipients', $data);
@@ -102,15 +105,23 @@ class Admin  extends CI_Controller
 
         if (($this->form_validation->run() == FALSE)) {
             echo "Login Fail";
+            $this->session->set_flashdata("error", "Please Enter All Fields");
         } else {
-            $user_data = [
-                'username' => $this->input->post('email'),
-                'password' => $this->input->post('password'),
-                'logged_in' => TRUE,
-            ];
-            $this->session->set_userdata($user_data);
-            redirect('admin/supporters');
+            if ($this->input->post('username') == "admin" && $this->input->post('password') == "admin") {
+                $user_data = [
+                    'username' => $this->input->post('username'),
+                    'password' => $this->input->post('password'),
+                    'logged_in' => TRUE,
+                ];
+                $this->session->set_userdata($user_data);
+                redirect('admin/supporters');
+                return;
+            } else {
+                $this->session->set_flashdata("error", "Invalid Username or Password");
+                echo "Login Fail, invalid password";
+            }
         }
+        redirect('admin/');
     }
 
     public function add_update_recipient($recipient_id = null)

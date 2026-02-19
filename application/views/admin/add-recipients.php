@@ -22,6 +22,7 @@
     $location = '';
     $photoUrl = '';
     $userId = $data["userId"];
+    $user_name = 'Supporter';
 
     $pageTitle = 'Recipient >> Add';
     $btnText = 'Add Recipient';
@@ -46,6 +47,9 @@
                 $location = $rec['location'] ?? '';
                 $photoUrl = $rec['photoUrl'] ?? '';
             }
+            if (isset($data['user_info']) && !empty($data['user_info'][0])) {
+                $user_name = $data['user_info'][0]['name'];
+            }
         }
     }
     ?>
@@ -57,7 +61,7 @@
         <div class="mb-8 border-b-2 border-gray-100 pb-4">
             <h2 class="text-[#2E8B57] m-0 text-3xl font-bold"><?php echo $pageTitle; ?></h2>
             <h3 class="text-gray-600 mt-2 text-lg font-normal">
-                Supporter: <span class="text-[#FF8C00] font-bold">Sagar Waghmare</span>
+                Supporter: <span class="text-[#FF8C00] font-bold"><?php echo $user_name; ?></span>
             </h3>
         </div>
 
@@ -189,6 +193,7 @@
                         class="hidden"
                         onchange="previewImage(this)">
                     <p id="fileName" class="text-xs text-gray-500 mt-2 truncate">Max size: 2MB</p>
+                    <p id="fileName" class="text-xs text-gray-500 mt-2 truncate">File Type: PNG, JPG</p>
                 </div>
 
             </div>
