@@ -11,7 +11,15 @@
 
 // print_r($supporter);
 $supporter_id = 0;
-$supporter_name = "John Pagar";
+$supporter_name = "Alok Kharkar";
+
+$positions = [
+    "absolute bottom-[16%] left-[63%] z-[5] w-[25%] cursor-pointer text-white hover:text-gray-300",
+    "absolute bottom-[16%] left-[30%] z-[5] w-[25%] cursor-pointer text-white hover:text-gray-300",
+    "absolute bottom-[2%] left-[47%] z-[5] w-[30%] cursor-pointer text-white hover:text-gray-300",
+    "absolute bottom-[30%] left-[58%] z-[5] w-[18%] cursor-pointer text-white hover:text-gray-300",
+    "absolute bottom-[25%] left-[5%] z-[5] w-[18%] cursor-pointer text-white hover:text-gray-300"
+];
 
 
 if (isset($supporter) && !empty($supporter[0])) {
@@ -34,13 +42,15 @@ if (isset($supporter) && !empty($supporter[0])) {
 
         <!-- App Header -->
         <div class="absolute top-0 left-0 right-0 z-10 p-5 flex justify-between items-center text-white font-bold text-base [text-shadow:_0_1px_3px_rgba(0,0,0,0.3)]">
-            <span>CFTI</span>
+            <!-- <span>CFTI</span> -->
+            <img src="<?php echo base_url("assets/images/cfti_logo_inverse.png");?>" alt="cfti logo"
+            class=" w-28">
             <span>Exim Bank</span>
         </div>
 
         <!-- Main Background Image -->
         <!-- object-fit: cover ensures the valley image fills the screen without stretching, acting as the 'world' -->
-        <img src='<?= base_url("assets/images/bg.png") ?>' alt="Valley View" class="absolute top-0 left-0 w-full h-full object-cover object-bottom z-[1]">
+        <img src='<?= base_url("assets/images/bg.jpg") ?>' alt="Valley View" class="absolute top-0 left-0 w-full h-full object-cover object-bottom z-[1]">
 
         <!-- Text Overlay -->
         <div class="relative z-[2] mt-20 px-[30px]">
@@ -59,53 +69,16 @@ if (isset($supporter) && !empty($supporter[0])) {
             $base = 15;
             foreach ($recipients as $key => $value) {
                 # code...
-                $position = $i * $base;
-                echo $position;
                 // echo $key;
             ?>
                 <!-- Cycle 0 (Left) -->
-
                 <a
                     href="<?php echo base_url('main/recipient/' . $supporter_id . '/' . $value['id']); ?>"
-                    class="absolute bottom-[16%] left-[63%] z-[5] w-[25%] cursor-pointer text-white hover:text-gray-300">
+                    class='<?php echo $positions[$i];?>'>
                     <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" class="w-full block drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]">
-                    <h2 class=" text-xs  text-center "><?php echo $value['studentName']; ?> 1</h2>
+                    <h2 class=" text-xs  text-center "><?php echo $value['studentName'];?> </h2>
                 </a>
-
-
-                <a
-                    href="<?php echo base_url('main/recipient/' . $supporter_id . '/' . $value['id']); ?>"
-                    class="absolute bottom-[16%] left-[30%] z-[5] w-[25%] cursor-pointer text-white hover:text-gray-300">
-                    <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" class="w-full block drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]">
-                    <h2 class=" text-xs  text-center "><?php echo $value['studentName']; ?> 2</h2>
-                </a>
-
-
-                <a
-                    href="<?php echo base_url('main/recipient/' . $supporter_id . '/' . $value['id']); ?>"
-                    class="absolute bottom-[2%] left-[47%] z-[5] w-[30%] cursor-pointer text-white hover:text-gray-300">
-                    <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" class="w-full block drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]">
-                    <h2 class=" text-xs  text-center "><?php echo $value['studentName']; ?> 3</h2>
-                </a>
-
-
-                <a
-                    href="<?php echo base_url('main/recipient/' . $supporter_id . '/' . $value['id']); ?>"
-                    class="absolute bottom-[30%] left-[58%] z-[5] w-[18%] cursor-pointer text-white hover:text-gray-300">
-                    <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" class="w-full block drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]">
-                    <h2 class=" text-xs  text-center "><?php echo $value['studentName']; ?> 4</h2>
-                </a>
-
-
-                <a
-                    href="<?php echo base_url('main/recipient/' . $supporter_id . '/' . $value['id']); ?>"
-                    class="absolute bottom-[25%] left-[5%] z-[5] w-[18%] cursor-pointer text-white hover:text-gray-300">
-                    <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" class="w-full block drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]">
-                    <h2 class=" text-xs  text-center "><?php echo $value['studentName']; ?> 5</h2>
-                </a>
-
             <?php
-                return;
                 $i++;
             }
 

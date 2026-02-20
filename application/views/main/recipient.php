@@ -11,8 +11,8 @@
 <body class="m-0 p-0 font-sans bg-[#222] min-h-screen flex justify-center items-center">
     <?php
 
-    $supporter_name = "John Pagar";
-    $recipient_name = "John Wick";
+    $supporter_name = "Alok Kharkar";
+    $recipient_name = "Pranav Kumar";
 
     $schoolName = "Pune Uni";
     $standard = "3rd";
@@ -68,7 +68,7 @@
 
             <!-- Recipient Info Card -->
             <div class="bg-[#f9fdf9] p-[15px] rounded-lg border border-[#e0e0e0] mb-5">
-                <h3 class="mb-2.5 text-[#333] text-xl font-bold"><?php echo $supporter_name; ?></h3>
+                <h3 class="mb-2.5 text-[#333] text-xl font-bold"><?php echo $recipient_name; ?></h3>
                 <p class="my-[5px] text-[#555]"><strong>School:</strong> <?php echo $schoolName; ?></p>
                 <p class="my-[5px] text-[#555]"><strong>Standard:</strong> <?php echo $standard; ?> Standard</p>
             </div>
