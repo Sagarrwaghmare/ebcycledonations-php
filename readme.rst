@@ -74,5 +74,9 @@ contributors to the CodeIgniter project and you, the CodeIgniter user.
 **************
 what's remining:
 dynamic cycle, position... : done
-Config Table Project Active
+Config Table Project Active:
+steps:
+ setup git url obj,
+ helper function to check config situation
+ if 
 QR Code Gen

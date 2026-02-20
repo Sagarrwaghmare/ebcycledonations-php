@@ -8,8 +8,14 @@ class Admin  extends CI_Controller
         parent::__construct();
 
         $this->load->library(['form_validation', 'session']);
+        $this->load->helper("application_helper");
         $this->load->model('User_Model');
         $this->load->model('Donation_Model');
+        $isActive = application_isactive();
+
+        if(!$isActive){
+            show_error('This application is currently unavailable. Please contact support.', 503, 'Service Unavailable');
+        }
         $this->load->helper(array('form', 'url'));
         $this->load->helper("my_upload_helper");
 
@@ -32,7 +38,6 @@ class Admin  extends CI_Controller
 
     public function supporters()
     {
-        $this->load->model('User_Model');
 
         $data['supporters'] = $this->User_Model->get_all_users();
         // var_dump($data);
@@ -43,8 +48,6 @@ class Admin  extends CI_Controller
     }
     public function recipients($supporter_id = null)
     {
-        $this->load->model('Donation_Model');
-        $this->load->model('User_Model');
 
 
         if ($supporter_id == null) {
@@ -65,7 +68,6 @@ class Admin  extends CI_Controller
 
     public function add_supporters($id = null)
     {
-        $this->load->model('User_Model');
         if ($id == null) {
             // add
             $data["data"] = array("create" => TRUE, "supporter" => null);
@@ -81,8 +83,6 @@ class Admin  extends CI_Controller
     public function add_recipients($supporter_id, $id = null)
     {
 
-        $this->load->model('Donation_Model');
-        $this->load->model('User_Model');
         if ($id == null) {
             // add
             $data["data"] = array("create" => TRUE, "recipient" => null, "userId" => $supporter_id, "user_info" => $this->User_Model->get_by_id($supporter_id));
@@ -126,7 +126,6 @@ class Admin  extends CI_Controller
 
     public function add_update_recipient($recipient_id = null)
     {
-        $this->load->model('Donation_Model');
 
         // Get all POST data from the form
         $data = $this->input->post();
@@ -190,7 +189,6 @@ class Admin  extends CI_Controller
     public function add_update_supporter($supporter_id = null)
     {
         var_dump($supporter_id, $this->input->post());
-        $this->load->model('User_Model');
         if ($supporter_id == null) {
             // create
             if ($this->User_Model->add($this->input->post())) {
@@ -211,7 +209,6 @@ class Admin  extends CI_Controller
     }
     public function delete_recipient($supporter_id, $recipient_id)
     {
-        $this->load->model('Donation_Model');
 
         // Define the path where recipient photos are stored.
         $upload_path = './assets/images/';
@@ -250,9 +247,6 @@ class Admin  extends CI_Controller
 
     public function delete_supporter($supporter_id)
     {
-
-        $this->load->model('User_Model');
-
         if ($this->User_Model->delete($supporter_id)) {
             echo "record deleted";
         } else {
