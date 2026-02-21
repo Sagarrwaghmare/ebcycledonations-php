@@ -1,6 +1,7 @@
 <?php
 
 $supporter_name = "Alok Kharkar";
+$supporter_id = 8; 
 $recipient_name = "Pranav Kumar";
 
 $schoolName = "Pune Uni";
@@ -12,6 +13,7 @@ $photoUrlName = "example1.jpg";
 
 if (isset($supporter) && !empty($supporter[0])) {
     $supporter_name = $supporter[0]["name"];
+    $supporter_id = $supporter[0]["id"];
 }
 
 
@@ -35,22 +37,22 @@ if (isset($recipient) && !empty($recipient[0])) {
 
     <!-- Primary Meta Tags -->
     <meta name="description"
-        content="Support <?php echo htmlspecialchars($supporterName); ?>! Check out their profile and QR code.">
+        content="Support <?php echo htmlspecialchars($supporter_name); ?>! Check out their profile and QR code.">
 
     <!-- Facebook / LinkedIn / WhatsApp (Open Graph) -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="<?php echo base_url('admin/add_supporters/' . $supporterId); ?>">
-    <meta property="og:title" content="Support <?php echo htmlspecialchars($supporterName); ?>">
+    <meta property="og:url" content="<?php echo base_url('admin/add_supporters/' . $supporter_id); ?>">
+    <meta property="og:title" content="Support <?php echo htmlspecialchars($supporter_name); ?>">
     <meta property="og:description" content="Check out this supporter profile. Scan the QR code to learn more.">
     <!-- Replace this image URL with a link to your logo or a generic badge image -->
-    <meta property="og:image" content="https://your-website.com/assets/images/preview-card.jpg">
+    <meta property="og:image" content="<?php echo base_url('assets/images/' . $photoUrlName); ?>">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="<?php echo base_url('admin/add_supporters/' . $supporterId); ?>">
-    <meta property="twitter:title" content="Support <?php echo htmlspecialchars($supporterName); ?>">
+    <meta property="twitter:url" content="<?php echo base_url('admin/add_supporters/' . $supporter_id); ?>">
+    <meta property="twitter:title" content="Support <?php echo htmlspecialchars($supporter_name); ?>">
     <meta property="twitter:description" content="Check out this supporter profile.">
-    <meta property="twitter:image" content="https://your-website.com/assets/images/preview-card.jpg">
+    <meta property="twitter:image" content="<?php echo base_url('assets/images/' . $photoUrlName); ?>">
 </head>
 
 <body class="m-0 p-0 font-sans bg-[#222] min-h-screen flex justify-center items-center">
