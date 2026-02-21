@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sagar's Support - Home</title>
-    <!-- Added Tailwind CSS CDN -->
-</head>
 <?php
 
 // print_r($supporter);
@@ -24,33 +15,49 @@ $positions = [
 
 if (isset($supporter) && !empty($supporter[0])) {
 
-    $supporter_id =  $supporter[0]['id'];
-    $supporter_name =  $supporter[0]['name'];
+    $supporter_id = $supporter[0]['id'];
+    $supporter_name = $supporter[0]['name'];
     // echo "all good";
 }
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $supporter_name; ?>'s Donations - Home</title>
+</head>
+
 
 <body class="m-0 p-0 font-sans bg-[#222] min-h-screen flex justify-center items-center">
 
-    <!-- 
-      Responsive Container: 
-      - On Mobile: Fills 100% width.
-      - On Desktop: Caps at 480px wide and centers itself, acting like a mobile app window.
-    -->
-    <div class="w-full max-w-[480px] bg-[#87CEEB] h-screen relative flex flex-col overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+    <div
+        class="w-full max-w-[480px] bg-[#87CEEB] h-screen relative flex flex-col overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)]">
 
         <!-- App Header -->
-        <div class="absolute top-0 left-0 right-0 z-10 p-5 flex justify-between items-center text-white font-bold text-base [text-shadow:_0_1px_3px_rgba(0,0,0,0.3)]">
+        <div
+            class="absolute top-0 left-0 right-0 z-10 p-4 flex justify-between items-center bg-white  text-white font-bold text-base [text-shadow:_0_1px_3px_rgba(0,0,0,0.3)]">
             <!-- <span>CFTI</span> -->
-            <img src="<?php echo base_url("assets/images/cfti_logo_inverse.png");?>" alt="cfti logo"
-            class=" w-28">
-            <span>Exim Bank</span>
+            <a href="https://cftiindia.com/">
+                <!-- <img src="<?php echo base_url("assets/images/cfti_logo_inverse.png"); ?>" alt="cfti logo" class=" w-28"> -->
+                <img src="<?php echo base_url("assets/images/cfti_logo.jpg"); ?>" alt="cfti logo" class=" w-28">
+            </a>
+
+            <!-- <span></span> -->
+             
+            <a href="https://www.eximbankindia.in/">
+                <img src="<?php echo base_url("assets/images/exim_bank_logo.png"); ?>" alt="cfti logo" class=" w-40">
+            </a>
         </div>
 
         <!-- Main Background Image -->
         <!-- object-fit: cover ensures the valley image fills the screen without stretching, acting as the 'world' -->
-        <img src='<?= base_url("assets/images/bg.jpg") ?>' alt="Valley View" class="absolute top-0 left-0 w-full h-full object-cover object-bottom z-[1]">
+        <!-- <img src='<?= base_url("assets/images/bg_webpage.jpg") ?>' alt="Valley View" -->
+        <img src='<?= base_url("assets/images/bg.jpg") ?>'  alt="Valley View"
+
+            class="absolute top-0 left-0 w-full h-full object-cover object-bottom z-[1]">
 
         <!-- Text Overlay -->
         <div class="relative z-[2] mt-20 px-[30px]">
@@ -64,21 +71,23 @@ if (isset($supporter) && !empty($supporter[0])) {
         <!-- Using percentages (%) for bottom/left/right ensures they stay on the 'path' regardless of screen size -->
         <div>
             <?php
-
             $i = 0;
             $base = 15;
             foreach ($recipients as $key => $value) {
+                if ($i > 4) {
+                    return;
+                }
                 # code...
                 // echo $key;
-            ?>
+                ?>
                 <!-- Cycle 0 (Left) -->
-                <a
-                    href="<?php echo base_url('main/recipient/' . $supporter_id . '/' . $value['id']); ?>"
-                    class='<?php echo $positions[$i];?>'>
-                    <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle" class="w-full block drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]">
-                    <h2 class=" text-xs  text-center "><?php echo $value['studentName'];?> </h2>
+                <a href="<?php echo base_url('main/recipient/' . $supporter_id . '/' . $value['id']); ?>"
+                    class='<?php echo $positions[$i]; ?>'>
+                    <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle"
+                        class="w-full block drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]">
+                    <h2 class=" text-xs  text-center "><?php echo $value['studentName']; ?> </h2>
                 </a>
-            <?php
+                <?php
                 $i++;
             }
 

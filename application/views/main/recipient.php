@@ -1,3 +1,30 @@
+<?php
+
+$supporter_name = "Alok Kharkar";
+$recipient_name = "Pranav Kumar";
+
+$schoolName = "Pune Uni";
+$standard = "3rd";
+
+$location = "Pune";
+$photoUrlName = "example1.jpg";
+
+
+if (isset($supporter) && !empty($supporter[0])) {
+    $supporter_name = $supporter[0]["name"];
+}
+
+
+if (isset($recipient) && !empty($recipient[0])) {
+    // $supporter_name = $supporter[0]["name"];
+    $recipient_name = $recipient[0]["studentName"];
+    $schoolName = $recipient[0]["schoolName"];
+    $standard = $recipient[0]["standard"];
+    $location = $recipient[0]["location"];
+    $photoUrlName = $recipient[0]["photoUrl"];
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,33 +36,7 @@
 </head>
 
 <body class="m-0 p-0 font-sans bg-[#222] min-h-screen flex justify-center items-center">
-    <?php
-
-    $supporter_name = "Alok Kharkar";
-    $recipient_name = "Pranav Kumar";
-
-    $schoolName = "Pune Uni";
-    $standard = "3rd";
-
-    $location = "Pune";
-    $photoUrlName = "example1.jpg";
-
-
-    if (isset($supporter) && !empty($supporter[0])) {
-        $supporter_name = $supporter[0]["name"];
-    }
-
-
-    if (isset($recipient) && !empty($recipient[0])) {
-        // $supporter_name = $supporter[0]["name"];
-        $recipient_name = $recipient[0]["studentName"];
-        $schoolName = $recipient[0]["schoolName"];
-        $standard = $recipient[0]["standard"];
-        $location = $recipient[0]["location"];
-        $photoUrlName = $recipient[0]["photoUrl"];
-    }
-
-    ?>
+    
     <!-- 
       Responsive Container:
       - Mobile: Full width, min-height 100vh.
