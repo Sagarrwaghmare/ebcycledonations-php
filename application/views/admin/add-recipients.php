@@ -4,12 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add/Edit Recipient</title>
-    <!-- Tailwind CSS -->
+    <title>Add/Edit Recipient</title> 
 </head>
 
-<body
-    class="m-0 p-0 font-sans min-h-screen flex justify-center items-center bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
+<body class="m-0 p-0 font-sans min-h-screen flex flex-col items-center bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
 
     <?php
     // --- LOGIC BLOCK ---
@@ -22,23 +20,29 @@
     $standard = '';
     $location = '';
     $photoUrl = '';
-    $userId = $data["userId"];
+    $userId = isset($data["userId"]) ? $data["userId"] : '';
     $user_name = 'Supporter';
 
     $pageTitle = 'Recipient >> Add';
+    $pageDesc = 'Add a new recipient to the supporter record.';
     $btnText = 'Add Recipient';
     $btnColor = 'bg-[#FF8C00] hover:bg-orange-600'; // Orange for Add
     
     // Check data provided in the prompt
     if (isset($data)) {
+        // Check for User Info (Supporter Name)
+        if (isset($data['user_info']) && !empty($data['user_info'][0])) {
+            $user_name = $data['user_info'][0]['name'];
+        }
+
         if (isset($data['create']) && $data['create'] === false) {
             $isCreate = false;
             $pageTitle = 'Recipient >> Edit';
+            $pageDesc = 'Modify details for the selected recipient.';
             $btnText = 'Update Recipient';
             $btnColor = 'bg-[#4682B4] hover:bg-sky-700'; // Blue for Update
     
             // Extract values if available
-            // Note: The array key in your dump is 'supporter', containing recipient data
             if (isset($data['recipient']) && !empty($data['recipient'][0])) {
                 $rec = $data['recipient'][0];
                 $recipientId = $rec['id'] ?? '';
@@ -48,29 +52,59 @@
                 $location = $rec['location'] ?? '';
                 $photoUrl = $rec['photoUrl'] ?? '';
             }
-            if (isset($data['user_info']) && !empty($data['user_info'][0])) {
-                $user_name = $data['user_info'][0]['name'];
-            }
         }
     }
     ?>
 
-    <!-- Main Container -->
-    <div class="bg-white w-[90%] max-w-[900px] p-10 rounded-lg shadow-2xl border-t-8 border-[#FF8C00] my-10">
+    <!-- 1. Header Navbar -->
+    <nav class="w-full bg-white shadow-md border-b-4 border-[#FF8C00] px-6 py-3 flex justify-between items-center sticky top-0 z-50">
+        
+        <!-- Left Side: Home Icon & Page Info -->
+        <div class="flex items-center gap-4">
+            <!-- Home Icon -->
+            <a href="<?php echo base_url('admin'); ?>" class="text-[#2E8B57] hover:text-[#FF8C00] transition transform hover:scale-110" title="Go Home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+            </a>
 
-        <!-- Header -->
+            <!-- Separator Line -->
+            <div class="h-8 w-px bg-gray-300 mx-1"></div>
+
+            <!-- Page Info (Dynamic Title) -->
+            <div>
+                <h1 class="text-[#2E8B57] m-0 text-xl font-bold leading-tight"><?php echo $pageTitle; ?></h1>
+                <p class="text-gray-500 m-0 text-xs"><?php echo $pageDesc; ?></p>
+            </div>
+        </div>
+
+        <!-- Right Side: Logout Button -->
+        <div>
+            <a href="<?php echo base_url('admin/logout'); ?>" class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-600 transition shadow-sm no-underline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Logout
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <!-- Removed border-t-8, added mt-8 -->
+    <div class="bg-white w-[90%] max-w-[900px] p-10 rounded-lg shadow-2xl mt-8 mb-10">
+
+        <!-- Header Context (Kept Supporter Name here for context) -->
         <div class="mb-8 border-b-2 border-gray-100 pb-4">
-            <h2 class="text-[#2E8B57] m-0 text-3xl font-bold"><?php echo $pageTitle; ?></h2>
+            <!-- Main Title moved to Navbar, Context kept here -->
             <h3 class="text-gray-600 mt-2 text-lg font-normal">
                 Supporter: <span class="text-[#FF8C00] font-bold">
-                    <a href="<?php echo base_url("admin/supporters");?>">
+                    <a href="<?php echo base_url("admin/supporters");?>" class="no-underline hover:underline">
                         <?php echo $user_name; ?>
                     </a>
                 </span>
             </h3>
         </div>
 
-        <!-- <form action="<?php echo base_url("admin/add_update_recipient/" . $recipientId); ?>" method="POST" enctype="multipart/form-data"> -->
         <?php echo form_open_multipart("admin/add_update_recipient/" . $recipientId); ?>
         <!-- Hidden ID for Edit Mode -->
         <?php if (!$isCreate): ?>
@@ -118,26 +152,13 @@
                 <div class="mb-5 hidden">
                     <label for="userId" class="block mb-2 text-gray-800 font-bold">User Id</label>
                     <input type="number" id="userId" name="userId" value="<?php echo htmlspecialchars($userId); ?>"
-                        placeholder="Map coordinates or Address"
                         class="w-full p-3 border border-[#87CEEB] rounded focus:outline-none focus:ring-2 focus:ring-[#2E8B57] text-gray-700">
                 </div>
-
-                <!-- <div class="mb-5  hidden">
-                        <label for="photoUrl" class="block mb-2 text-gray-800 font-bold">Photo Url</label>
-                        <input 
-                            type="text" 
-                            id="photoUrl" 
-                            name="photoUrl" 
-                            value="<?php echo "example3.jpg"; ?>"
-                            placeholder="Map coordinates or Address" 
-                            class="w-full p-3 border border-[#87CEEB] rounded focus:outline-none focus:ring-2 focus:ring-[#2E8B57] text-gray-700"
-                        >
-                    </div> -->
 
                 <!-- Action Button -->
                 <div class="mt-8 pt-6 border-t border-gray-100 flex gap-4">
                     <button type="submit"
-                        class="w-full sm:w-auto px-8 py-3 <?php echo $btnColor; ?> text-white rounded font-bold shadow-md transition cursor-pointer">
+                        class="w-full sm:w-auto px-8 py-3 <?php echo $btnColor; ?> text-white rounded font-bold shadow-md transition cursor-pointer border-none">
                         <?php echo $btnText; ?>
                     </button>
                 </div>
@@ -145,14 +166,12 @@
             </div>
 
             <!-- RIGHT COLUMN: Photo Upload & Preview -->
-            <div
-                class="w-full md:w-[250px] flex flex-col items-center justify-start md:border-l md:border-gray-100 md:pl-8">
+            <div class="w-full md:w-[250px] flex flex-col items-center justify-start md:border-l md:border-gray-100 md:pl-8">
 
                 <label class="text-gray-800 font-bold text-lg mb-4">Recipient Photo</label>
 
                 <!-- Preview Box -->
-                <div
-                    class="w-[180px] h-[180px] border-2 border-dashed border-[#87CEEB] bg-[#f0f8ff] rounded-lg flex items-center justify-center mb-6 overflow-hidden relative">
+                <div class="w-[180px] h-[180px] border-2 border-dashed border-[#87CEEB] bg-[#f0f8ff] rounded-lg flex items-center justify-center mb-6 overflow-hidden relative">
 
                     <!-- Image Element (Hidden if no src, or shows current photo) -->
                     <img id="photoPreview" src="<?php echo $photoUrl ? base_url('assets/images/' . $photoUrl) : ''; ?>"
@@ -173,8 +192,8 @@
                     </label>
                     <input type="file" id="photo" name="photo" accept="image/*" class="hidden"
                         onchange="previewImage(this)">
-                    <p id="fileName" class="text-xs text-gray-500 mt-2 truncate">Max size: 2MB</p>
-                    <p id="fileName" class="text-xs text-gray-500 mt-2 truncate">File Type: PNG, JPG</p>
+                    <p class="text-xs text-gray-500 mt-2 truncate">Max size: 2MB</p>
+                    <p id="fileName" class="text-xs text-gray-500 mt-2 truncate font-bold"></p>
                 </div>
 
             </div>

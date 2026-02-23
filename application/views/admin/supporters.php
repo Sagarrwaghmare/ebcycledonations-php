@@ -4,22 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-
+    <title>Admin Dashboard</title> 
 </head>
 
-<body class="m-0 p-0 font-sans min-h-screen flex justify-center items-start bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
+<!-- Changed body layout to flex-col to stack Navbar on top of Content -->
+<body class="m-0 p-0 font-sans min-h-screen flex flex-col items-center bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
 
-    <!-- Main Container -->
-    <div class="bg-white w-[90%] max-w-[900px] mt-[50px] mb-[50px] p-10 rounded-lg shadow-2xl border-t-8 border-[#FF8C00]">
+    <!-- 1. Header Navbar -->
+    <nav class="w-full bg-white shadow-md border-b-4 border-[#FF8C00] px-6 py-3 flex justify-between items-center sticky top-0 z-50">
+        
+        <!-- Left Side: Home Icon & Page Info -->
+        <div class="flex items-center gap-4">
+            <!-- Home Icon -->
+            <a href="<?php echo base_url('admin'); ?>" class="text-[#2E8B57] hover:text-[#FF8C00] transition transform hover:scale-110" title="Go Home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+            </a>
 
-        <!-- Header -->
-        <div class="mb-8 flex justify-between items-end">
+            <!-- Separator Line (Visual) -->
+            <div class="h-8 w-px bg-gray-300 mx-1"></div>
+
+            <!-- Page Info (Moved from inside the card) -->
             <div>
-                <h1 class="text-[#2E8B57] m-0 text-3xl font-bold">Dashboard - Admin</h1>
-                <p class="text-gray-600 mt-1 text-sm">Manage supporters and donation records.</p>
+                <h1 class="text-[#2E8B57] m-0 text-xl font-bold leading-tight">Dashboard - Admin</h1>
+                <p class="text-gray-500 m-0 text-xs">Manage supporters and donation records.</p>
             </div>
         </div>
+
+        <!-- Right Side: Logout Button -->
+        <div>
+            <a href="<?php echo base_url('admin/logout'); ?>" class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-600 transition shadow-sm no-underline">
+                <!-- Logout Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Logout
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <!-- Removed border-t-8 since navbar has a border now, adjusted margins -->
+    <div class="bg-white w-[90%] max-w-[900px] mt-8 mb-10 p-8 rounded-lg shadow-2xl">
+
+        <!-- Old Header removed from here, contents moved to Navbar -->
 
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -29,24 +58,20 @@
                         <th class="p-4 border-b-2 border-gray-200">Sr.No</th>
                         <th class="p-4 border-b-2 border-gray-200">Supporter</th>
                         <th class="p-4 border-b-2 border-gray-200">Donations</th>
-                        <!-- 2. & 3. Actions Column Merged -->
                         <th class="p-4 border-b-2 border-gray-200 text-center w-64">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
                     <?php
                     $i = 1;
-                    // Check if variable exists to prevent PHP errors in this raw HTML view
                     if (isset($supporters) && is_array($supporters)) {
                         foreach ($supporters as $key => $value) {
                     ?>
-                            <!-- Added class 'data-row' for jQuery targeting -->
                             <tr class="data-row border-b border-gray-100 hover:bg-gray-50 transition-colors">
                                 <td class="p-3 text-gray-800"><?php echo $i; ?></td>
                                 <td class="p-3 text-gray-800 font-medium"><?php echo $value["name"]; ?></td>
                                 <td class="p-3 text-gray-800"><?php echo $value["total_donation"]; ?></td>
 
-                                <!-- 3. Edit & Delete moved here next to View -->
                                 <td class="p-3 text-center flex justify-center gap-2">
                                     <a href="<?php echo base_url('admin/recipients/' . $value["id"]); ?>"
                                         class="px-3 py-1.5 bg-[#87CEEB] text-[#003366] rounded text-sm font-bold hover:brightness-95 transition no-underline inline-block">
@@ -80,7 +105,7 @@
                 </a>
             </div>
 
-            <!-- 4. Pagination & Select Input -->
+            <!-- Pagination & Select Input -->
             <div class="flex items-center gap-4 text-gray-800 font-bold">
 
                 <!-- Rows Per Page Select -->
@@ -152,9 +177,6 @@
             // Function to create pagination buttons
             function renderPagination(totalPages) {
                 $paginationContainer.empty();
-
-                // Don't show numbers if only 1 page (optional, removed for consistency)
-                // if (totalPages <= 1) return; 
 
                 for (let i = 1; i <= totalPages; i++) {
                     // Determine styles for active vs inactive buttons

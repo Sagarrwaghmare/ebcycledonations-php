@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add/Edit Supporter</title>
-    <!-- Tailwind CSS -->
+    <title>Add/Edit Supporter</title> 
 </head>
 
-<body class="m-0 p-0 font-sans min-h-screen flex justify-center items-center bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
+<body class="m-0 p-0 font-sans min-h-screen flex flex-col items-center bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
 
     <?php
     // --- 1. LOGIC HANDLER ---
@@ -18,41 +17,68 @@
     $supporterId = '';
     $supporterName = '';
     $pageTitle = 'Add New Supporter';
+    $pageDesc = 'Enter details below to generate a QR code.';
     $btnText = 'Save Supporter';
-
-    // This is a placeholder for the base_url() function. 
-    // In a real CodeIgniter/Laravel environment, this function would return the base URL of your application.
 
     // Check if data exists and if we are in edit mode
     if (isset($data)) {
-        // The boolean check
         if (isset($data['create']) && $data['create'] === false) {
             $isCreate = false;
             $pageTitle = 'Edit Supporter';
+            $pageDesc = 'Update supporter details and regenerate QR.';
             $btnText = 'Update Supporter';
 
             // Extract supporter details if available
             if (isset($data['supporter']) && !empty($data['supporter'][0])) {
                 $supp = $data['supporter'][0];
-                $supporterId = $supp['id'] ?? '123'; // Example ID for edit mode
-                $supporterName = $supp['name'] ?? 'John Doe'; // Example name for edit mode
+                $supporterId = $supp['id'] ?? '123'; 
+                $supporterName = $supp['name'] ?? 'John Doe';
             }
         }
     }
 
     // Construct the URL for the QR code
     $qrDataUrl = base_url('supporter/' . ($supporterId ?: ''));
-
     ?>
 
-    <!-- Main Card Container -->
-    <div class="bg-white w-[90%] max-w-[900px] p-10 rounded-lg shadow-2xl border-t-8 border-[#FF8C00] my-10">
+    <!-- 2. Header Navbar -->
+    <nav class="w-full bg-white shadow-md border-b-4 border-[#FF8C00] px-6 py-3 flex justify-between items-center sticky top-0 z-50">
+        
+        <!-- Left Side: Home Icon & Page Info -->
+        <div class="flex items-center gap-4">
+            <!-- Home Icon -->
+            <a href="<?php echo base_url('admin'); ?>" class="text-[#2E8B57] hover:text-[#FF8C00] transition transform hover:scale-110" title="Go Home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+            </a>
 
-        <!-- Header -->
-        <div class="mb-8 border-b-2 border-gray-100 pb-4">
-            <h2 class="text-[#2E8B57] m-0 text-3xl font-bold"><?php echo $pageTitle; ?></h2>
-            <p class="text-gray-600 mt-2 text-sm">Enter details below to generate a QR code for the supporter.</p>
+            <!-- Separator Line -->
+            <div class="h-8 w-px bg-gray-300 mx-1"></div>
+
+            <!-- Page Info (Dynamic Title) -->
+            <div>
+                <h1 class="text-[#2E8B57] m-0 text-xl font-bold leading-tight"><?php echo $pageTitle; ?></h1>
+                <p class="text-gray-500 m-0 text-xs"><?php echo $pageDesc; ?></p>
+            </div>
         </div>
+
+        <!-- Right Side: Logout Button -->
+        <div>
+            <a href="<?php echo base_url('admin/logout'); ?>" class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-600 transition shadow-sm no-underline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Logout
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Card Container -->
+    <!-- Removed border-t-8, added mt-8 -->
+    <div class="bg-white w-[90%] max-w-[900px] p-10 rounded-lg shadow-2xl mt-8 mb-10">
+
+        <!-- Old Header removed, title moved to Navbar -->
 
         <!-- Content Wrapper -->
         <div class="flex flex-col md:flex-row gap-10">
@@ -79,11 +105,11 @@
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4 mt-4">
                         <!-- JS Trigger for QR -->
-                        <button type="button" onclick="generateQR()" class="flex-1 py-3 px-4 bg-[#4682B4] text-white rounded font-bold hover:bg-[#36648b] transition">
+                        <button type="button" onclick="generateQR()" class="flex-1 py-3 px-4 bg-[#4682B4] text-white rounded font-bold hover:bg-[#36648b] transition cursor-pointer">
                             Generate QR
                         </button>
                         <!-- Submit Form -->
-                        <button type="submit" class="flex-1 py-3 px-4 bg-[#FF8C00] text-white rounded font-bold shadow-md hover:bg-orange-600 transition">
+                        <button type="submit" class="flex-1 py-3 px-4 bg-[#FF8C00] text-white rounded font-bold shadow-md hover:bg-orange-600 transition cursor-pointer">
                             <?php echo $btnText; ?>
                         </button>
                     </div>
@@ -107,7 +133,7 @@
                 </div>
 
                 <!-- Download Button -->
-                <button onclick="downloadQR()" class="w-[200px] py-2.5 bg-white text-gray-700 border-2 border-gray-500 rounded font-bold hover:bg-gray-50 transition flex items-center justify-center gap-2">
+                <button onclick="downloadQR()" class="w-[200px] py-2.5 bg-white text-gray-700 border-2 border-gray-500 rounded font-bold hover:bg-gray-50 transition flex items-center justify-center gap-2 cursor-pointer">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                         <polyline points="7 10 12 15 17 10"></polyline>

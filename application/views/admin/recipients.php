@@ -5,20 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Recipient</title>
-     
 </head>
 
-<body class="m-0 p-0 font-sans min-h-screen flex justify-center items-start bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
+<body class="m-0 p-0 font-sans min-h-screen flex flex-col items-center bg-gradient-to-b from-[#87CEEB] via-[#e0f7fa] to-[#556B2F]">
 
-    <!-- Main Container (Increased max-width to accommodate larger maps/photos) -->
-    <div class="bg-white w-[95%] max-w-[1300px] mt-[50px] mb-[50px] p-10 rounded-lg shadow-2xl border-t-8 border-[#FF8C00]">
+    <!-- 1. Header Navbar -->
+    <nav class="w-full bg-white shadow-md border-b-4 border-[#FF8C00] px-6 py-3 flex justify-between items-center sticky top-0 z-50">
 
-        <!-- Header -->
+        <!-- Left Side: Home Icon & Page Info -->
+        <div class="flex items-center gap-4">
+            <!-- Home Icon -->
+            <a href="<?php echo base_url('admin'); ?>" class="text-[#2E8B57] hover:text-[#FF8C00] transition transform hover:scale-110" title="Go Home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+            </a>
+
+            <!-- Separator Line -->
+            <div class="h-8 w-px bg-gray-300 mx-1"></div>
+
+            <!-- Page Info (Moved Title here) -->
+            <div>
+                <h1 class="text-[#2E8B57] m-0 text-xl font-bold leading-tight">View Recipient</h1>
+                <p class="text-gray-500 m-0 text-xs">Manage recipients for specific supporters.</p>
+            </div>
+        </div>
+
+        <!-- Right Side: Logout Button -->
+        <div>
+            <a href="<?php echo base_url('admin/logout'); ?>" class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-600 transition shadow-sm no-underline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Logout
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <!-- Removed border-t-8, added margin top -->
+    <div class="bg-white w-[95%] max-w-[1300px] mt-8 mb-10 p-10 rounded-lg shadow-2xl">
+
+        <!-- Context Header (Kept Supporter Name here as it's specific data) -->
         <div class="mb-8 border-b-2 border-gray-100 pb-4">
-            <h1 class="text-[#2E8B57] m-0 text-3xl font-bold">View Recipient</h1>
-            <!-- PHP Variable check for display safety -->
+            <!-- Variable check for display safety -->
             <h3 class="text-gray-600 mt-2 text-lg font-normal">
-                Supporter: <span class="text-[#FF8C00] font-bold"><?php echo $supporter[0]['name'];?></span>
+                Supporter: <span class="text-[#FF8C00] font-bold">
+                    <a href="<?php echo base_url("admin/supporters"); ?>" class="no-underline hover:underline">
+                        <?php echo isset($supporter[0]['name']) ? $supporter[0]['name'] : 'Unknown'; ?>
+                    </a>
+                </span>
             </h3>
         </div>
 
@@ -42,54 +78,51 @@
 
                     <?php
                     $i = 1;
-                    if(isset($recipients) && is_array($recipients)) {
+                    if (isset($recipients) && is_array($recipients)) {
                         foreach ($recipients as $key => $value) {
                             // PHP: Construct Map URL
-                            $locationUrl = "https://maps.google.com/maps?q=".$value["location"]."&t=&z=10&ie=UTF8&iwloc=&output=embed";
+                            $locationUrl = "https://maps.google.com/maps?q=" . $value["location"] . "&t=&z=10&ie=UTF8&iwloc=&output=embed";
                     ?>
-                        <!-- 'data-row' class for jQuery pagination -->
-                        <tr class="data-row border-b border-gray-100 hover:bg-gray-50 transition-colors align-top">
-                            <td class="p-4 text-gray-800 font-bold"><?php echo $i; ?></td>
-                            
-                            <td class="p-4">
-                                <div class="text-gray-800 font-bold text-lg"><?php echo $value["studentName"]; ?></div>
-                            </td>
-                            
-                            <td class="p-4 text-gray-600"><?php echo $value["schoolName"]; ?></td>
-                            <td class="p-4 text-gray-600"><?php echo $value["standard"]; ?></td>
+                            <!-- 'data-row' class for jQuery pagination -->
+                            <tr class="data-row border-b border-gray-100 hover:bg-gray-50 transition-colors align-top">
+                                <td class="p-4 text-gray-800 font-bold"><?php echo $i; ?></td>
 
-                            <!-- Map Location (Larger & Styled) -->
-                            <td class="p-4">
-                                <!-- <div class="mb-1 text-xs text-gray-500 truncate w-60"><?php echo $value["location"]; ?></div> -->
-                                <!-- Increased height to h-32 (128px) and added rounded corners -->
-                                <div class="border-2 border-[#87CEEB] rounded-lg overflow-hidden h-32 w-full shadow-sm">
-                                    <iframe class="w-full h-full" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="<?php echo $locationUrl; ?>"></iframe>
-                                </div>
-                            </td>
+                                <td class="p-4">
+                                    <div class="text-gray-800 font-bold text-lg"><?php echo $value["studentName"]; ?></div>
+                                </td>
 
-                            <!-- Photo (Larger & Rectangular with rounded corners) -->
-                            <td class="p-4 text-center">
-                                <!-- Changed from rounded-full to rounded-lg, increased size to h-32/w-full to match map -->
-                                <img src="<?php echo base_url('assets/images/'.$value["photoUrl"]); ?>" 
-                                     alt="Recipient" 
-                                     class="w-full h-32 object-cover rounded-lg border-2 border-gray-200 shadow-sm mx-auto">
-                            </td>
+                                <td class="p-4 text-gray-600"><?php echo $value["schoolName"]; ?></td>
+                                <td class="p-4 text-gray-600"><?php echo $value["standard"]; ?></td>
 
-                            <!-- Actions -->
-                            <td class="p-4 text-center">
-                                <div class="flex flex-col gap-2 justify-center h-full pt-6">
-                                    <a href="<?php echo base_url('admin/add_recipients/'. $supporterId. '/'. $value["id"])?>"
-                                       class="px-4 py-2 bg-[#4682B4] text-white rounded font-bold hover:brightness-95 transition text-sm text-center no-underline">
-                                        Edit
-                                    </a>
-                                    <a 
-                                    href="<?php echo base_url("admin/delete_recipient/".$supporterId.'/'.$value['id']);?>"
-                                    class="px-4 py-2 bg-[#CD5C5C] text-white rounded font-bold hover:brightness-95 transition text-sm cursor-pointer border-none">
-                                        Delete
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                                <!-- Map Location -->
+                                <td class="p-4">
+                                    <div class="border-2 border-[#87CEEB] rounded-lg overflow-hidden h-32 w-full shadow-sm">
+                                        <iframe class="w-full h-full" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="<?php echo $locationUrl; ?>"></iframe>
+                                    </div>
+                                </td>
+
+                                <!-- Photo -->
+                                <td class="p-4 text-center">
+                                    <img src="<?php echo base_url('assets/images/' . $value["photoUrl"]); ?>"
+                                        alt="Recipient"
+                                        class="w-full h-32 object-cover rounded-lg border-2 border-gray-200 shadow-sm mx-auto">
+                                </td>
+
+                                <!-- Actions -->
+                                <td class="p-4 text-center">
+                                    <div class="flex flex-col gap-2 justify-center h-full pt-6">
+                                        <a href="<?php echo base_url('admin/add_recipients/' . $supporterId . '/' . $value["id"]) ?>"
+                                            class="px-4 py-2 bg-[#4682B4] text-white rounded font-bold hover:brightness-95 transition text-sm text-center no-underline">
+                                            Edit
+                                        </a>
+                                        <a
+                                            href="<?php echo base_url("admin/delete_recipient/" . $supporterId . '/' . $value['id']); ?>"
+                                            class="px-4 py-2 bg-[#CD5C5C] text-white rounded font-bold hover:brightness-95 transition text-sm cursor-pointer border-none text-center no-underline">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
 
                     <?php
                             $i++;
@@ -106,14 +139,14 @@
 
             <!-- Add Recipient Button -->
             <div>
-                <a href="<?php echo base_url('admin/add_recipients/'.$supporterId);?>" class="px-6 py-3 bg-[#FF8C00] text-white rounded-md font-bold shadow-md hover:bg-orange-600 transition cursor-pointer border-none text-base">
+                <a href="<?php echo base_url('admin/add_recipients/' . $supporterId); ?>" class="px-6 py-3 bg-[#FF8C00] text-white rounded-md font-bold shadow-md hover:bg-orange-600 transition cursor-pointer border-none text-base no-underline inline-block">
                     + Add Recipient
                 </a>
             </div>
 
             <!-- Pagination & Select Input -->
             <div class="flex items-center gap-4 text-gray-800 font-bold">
-                
+
                 <!-- Rows Per Page Select -->
                 <div class="flex items-center gap-2 text-sm font-normal">
                     <label for="rowsPerPage">Rows:</label>
@@ -143,7 +176,7 @@
             const $rows = $tableBody.find('.data-row'); // Select by class to ensure specific targeting
             const $select = $('#rowsPerPage');
             const $paginationContainer = $('#paginationNumbers');
-            
+
             let currentPage = 1;
 
             // Function to render table based on pagination settings
@@ -207,7 +240,7 @@
 
             // Event listener for Select change
             $select.on('change', function() {
-                currentPage = 1; 
+                currentPage = 1;
                 renderTable();
             });
 

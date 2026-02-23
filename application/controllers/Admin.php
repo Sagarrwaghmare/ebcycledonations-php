@@ -13,7 +13,7 @@ class Admin  extends CI_Controller
         $this->load->model('Donation_Model');
         $isActive = application_isactive();
 
-        if(!$isActive){
+        if (!$isActive) {
             show_error('This application is currently unavailable. Please contact support.', 503, 'Service Unavailable');
         }
         $this->load->helper(array('form', 'url'));
@@ -30,10 +30,15 @@ class Admin  extends CI_Controller
     public function index()
     {
         if ($this->session->userdata('logged_in')) {
-        redirect("admin/supporters");
+            redirect("admin/supporters");
         }
         $this->load->view('base/base');
         $this->load->view('admin/admin-login');
+    }
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect("admin/");
     }
 
     public function supporters()
