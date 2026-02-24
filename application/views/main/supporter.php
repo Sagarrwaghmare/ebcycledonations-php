@@ -20,6 +20,10 @@ if (isset($supporter) && !empty($supporter[0])) {
     // echo "all good";
 }
 
+$pageUrl = base_url('main/supporter/' . $supporter_id);
+$imageUrl = base_url('assets/images/bg.jpg');
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +31,30 @@ if (isset($supporter) && !empty($supporter[0])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $supporter_name; ?>'s Donations - Home</title>
+    <title><?php echo htmlspecialchars($supporter_name); ?>'s Donations - Home</title>
+
+    <!-- Primary Meta -->
+    <meta name="title" content="Bicycle Donations by <?php echo htmlspecialchars($supporter_name); ?>">
+    <meta name="description"
+        content="See the children <?php echo htmlspecialchars($supporter_name); ?> has supported with a bicycle.">
+
+    <!-- Open Graph / WhatsApp / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Cycle Donation Program">
+    <meta property="og:url" content="<?php echo $pageUrl; ?>">
+    <meta property="og:title" content="Bicycle Donations by <?php echo htmlspecialchars($supporter_name); ?>">
+    <meta property="og:description" content="Helping children get to school, one bicycle at a time.">
+    <meta property="og:image" content="<?php echo $imageUrl; ?>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="<?php echo $pageUrl; ?>">
+    <meta property="twitter:title" content="Bicycle Donations by <?php echo htmlspecialchars($supporter_name); ?>">
+    <meta property="twitter:description"
+        content="See the children <?php echo htmlspecialchars($supporter_name); ?> has supported with a bicycle.">
+    <meta property="twitter:image" content="<?php echo $imageUrl; ?>">
 </head>
 
 
@@ -46,7 +73,7 @@ if (isset($supporter) && !empty($supporter[0])) {
             </a>
 
             <!-- <span></span> -->
-             
+
             <a href="https://www.eximbankindia.in/">
                 <img src="<?php echo base_url("assets/images/exim_bank_logo.png"); ?>" alt="cfti logo" class=" w-40">
             </a>
@@ -55,8 +82,7 @@ if (isset($supporter) && !empty($supporter[0])) {
         <!-- Main Background Image -->
         <!-- object-fit: cover ensures the valley image fills the screen without stretching, acting as the 'world' -->
         <!-- <img src='<?= base_url("assets/images/bg_webpage.jpg") ?>' alt="Valley View" -->
-        <img src='<?= base_url("assets/images/bg.jpg") ?>'  alt="Valley View"
-
+        <img src='<?= base_url("assets/images/bg.jpg") ?>' alt="Valley View"
             class="absolute top-0 left-0 w-full h-full object-cover object-bottom z-[1]">
 
         <!-- Text Overlay -->
@@ -94,7 +120,91 @@ if (isset($supporter) && !empty($supporter[0])) {
             ?>
         </div>
 
+        <!-- Share Button -->
+        <div class="absolute bottom-4 right-4 z-20">
+
+            <div id="share-options"
+                class="hidden absolute bottom-full right-0 mb-3 bg-white border border-gray-200 shadow-xl rounded-lg p-2 flex flex-col gap-2 min-w-[160px] z-50">
+
+                <a href="#" id="share-twitter" target="_blank"
+                    class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded text-sm text-gray-700 no-underline">
+                    Twitter
+                </a>
+
+                <a href="#" id="share-fb" target="_blank"
+                    class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded text-sm text-gray-700 no-underline">
+                    Facebook
+                </a>
+
+                <a href="#" id="share-linkedin" target="_blank"
+                    class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded text-sm text-gray-700 no-underline">
+                    LinkedIn
+                </a>
+
+                <a href="#" id="share-whatsapp" target="_blank"
+                    class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded text-sm text-gray-700 no-underline">
+                    WhatsApp
+                </a>
+
+            </div>
+
+            <button onclick="toggleShareMenu(event)"
+                class=" h-14 px-[15px] bg-[#f0f0f0] text-[#333] border border-[#ccc] rounded-lg cursor-pointer hover:bg-[#e0e0e0] flex items-center justify-center transition-colors shadow-[0_4px_6px_rgba(0,0,0,0.05)]">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+            </button>
+
+        </div>
+
+
     </div>
+
+
+    <script>
+        function toggleShareMenu(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('share-options');
+            menu.classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('share-options');
+            const shareBtn = document.querySelector('button[onclick="toggleShareMenu(event)"]');
+
+            if (!menu.classList.contains('hidden') && !menu.contains(event.target) && !shareBtn.contains(event
+                .target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const currentUrl = encodeURIComponent(window.location.href);
+            const supporterName = "<?php echo addslashes($supporter_name); ?>";
+
+            const shareText = encodeURIComponent(
+                `See the children supported by ${supporterName} through the Bicycle Donation Program.`
+            );
+
+            document.getElementById('share-twitter').href =
+                `https://twitter.com/intent/tweet?text=${shareText}&url=${currentUrl}`;
+
+            document.getElementById('share-fb').href =
+                `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
+
+            document.getElementById('share-linkedin').href =
+                `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`;
+
+            document.getElementById('share-whatsapp').href =
+                `https://api.whatsapp.com/send?text=${shareText}%20${currentUrl}`;
+        });
+    </script>
 
 </body>
 
