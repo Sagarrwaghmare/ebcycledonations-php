@@ -81,6 +81,12 @@
                     if (isset($recipients) && is_array($recipients)) {
                         foreach ($recipients as $key => $value) {
                             // PHP: Construct Map URL
+                            if($value["location"] == ""){
+                                // $value["location"] = "Alibag - Pen Rd";
+                            }
+                            if($value["photoUrl"] == ""){
+                                // $value["photoUrl"] = "example3.jpg";
+                            }
                             $locationUrl = "https://maps.google.com/maps?q=" . $value["location"] . "&t=&z=10&ie=UTF8&iwloc=&output=embed";
                     ?>
                             <!-- 'data-row' class for jQuery pagination -->

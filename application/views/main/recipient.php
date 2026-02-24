@@ -7,8 +7,8 @@ $recipient_name = "Pranav Kumar";
 $schoolName = "Pune Uni";
 $standard = "3rd";
 
-$location = "Pune";
-$photoUrlName = "example1.jpg";
+$location = "Alibag - Pen Rd";
+$photoUrlName = "example3.jpg";
 
 
 if (isset($supporter) && !empty($supporter[0])) {
@@ -21,8 +21,12 @@ if (isset($recipient) && !empty($recipient[0])) {
     $recipient_name = $recipient[0]["studentName"];
     $schoolName = $recipient[0]["schoolName"];
     $standard = $recipient[0]["standard"];
-    $location = $recipient[0]["location"];
-    $photoUrlName = $recipient[0]["photoUrl"];
+    if($recipient[0]["location"] != ""){
+        $location = $recipient[0]["location"];
+    }
+    if($recipient[0]["photoUrl"] != ""){
+        $photoUrlName = $recipient[0]["photoUrl"];
+    }
 }
 
 $pageUrl = base_url('admin/add_supporters/' . $supporter_id);
