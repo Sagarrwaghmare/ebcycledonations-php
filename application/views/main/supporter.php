@@ -95,7 +95,8 @@ $imageUrl = base_url('assets/images/bg.jpg');
             <h1 class="bg-white/90 backdrop-blur-sm text-gray-800 text-[26px] p-6 rounded-2xl shadow-xl m-0 leading-[1.3] text-center w-full">
                 Children supported with a Bicycle by <br>
                 <!-- Changed text color to darker gold/orange (#ca8a04) so it is readable on white bg -->
-                <span class="font-extrabold text-[#FFD700] text-[32px] "><?php echo $supporter_name; ?></span>
+                 <!-- text-[#FFD700] -->
+                <span class="font-extrabold  text-[32px] "><?php echo $supporter_name; ?></span>
             </h1>
         </div>
         <!-- UPDATED SECTION ENDS HERE -->
