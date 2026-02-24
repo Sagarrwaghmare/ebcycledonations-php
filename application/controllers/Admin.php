@@ -260,4 +260,15 @@ class Admin  extends CI_Controller
 
         redirect("admin/supporters");
     }
+    public function delete_supporter_full($supporter_id){
+        
+        $data = null;
+        $data['recipients'] = $this->Donation_Model->delete_by_user_id($supporter_id);
+        $data['supporter'] = $this->User_Model->delete($supporter_id);
+
+        // echo "<pre>";
+        // print_r($data);
+        redirect("admin/supporters");
+
+    }
 }

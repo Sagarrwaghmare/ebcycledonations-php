@@ -34,6 +34,14 @@ class donation_Model extends CI_Model
 
         return TRUE;
     }
+    
+    public function delete_by_user_id($id)
+    {
+        $this->db->where_in('UserId', array($id));
+        $this->db->delete('donation');
+        return TRUE;
+    }
+
 
     public function add($data)
     {

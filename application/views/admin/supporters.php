@@ -81,7 +81,7 @@
                                         class="px-3 py-1.5 bg-[#4682B4] text-white rounded text-sm font-bold hover:brightness-95 transition cursor-pointer border-none">
                                         Edit
                                     </a>
-                                    <a href="<?php echo base_url('admin/delete_supporter/'. $value["id"])?>" class="px-3 py-1.5 bg-[#696969] text-white rounded text-sm font-bold hover:brightness-95 transition cursor-pointer border-none">
+                                    <a href="<?php echo base_url('admin/delete_supporter_full/'. $value["id"])?>" class="px-3 py-1.5 bg-[#696969] text-white rounded text-sm font-bold hover:brightness-95 transition cursor-pointer border-none">
                                         Delete
                                     </a >
                                 </td>
