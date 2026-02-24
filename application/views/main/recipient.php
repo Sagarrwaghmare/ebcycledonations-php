@@ -8,7 +8,7 @@ $schoolName = "Pune Uni";
 $standard = "3rd";
 
 $location = "Alibag - Pen Rd";
-$photoUrlName = "example3.jpg";
+$photoUrlName = "school_default.jpg";
 
 
 if (isset($supporter) && !empty($supporter[0])) {

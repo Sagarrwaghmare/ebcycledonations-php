@@ -55,6 +55,10 @@ $imageUrl = base_url('assets/images/bg.jpg');
     <meta property="twitter:description"
         content="See the children <?php echo htmlspecialchars($supporter_name); ?> has supported with a bicycle.">
     <meta property="twitter:image" content="<?php echo $imageUrl; ?>">
+
+    <style>
+       
+    </style>
 </head>
 
 
@@ -86,12 +90,15 @@ $imageUrl = base_url('assets/images/bg.jpg');
             class="absolute top-0 left-0 w-full h-full object-cover object-bottom z-[1]">
 
         <!-- Text Overlay -->
-        <div class="relative z-[2] mt-20 px-[30px]">
-            <h1 class="text-white text-[26px] [text-shadow:_0_2px_5px_rgba(0,0,0,0.4)] m-0 leading-[1.3]">
+        <!-- UPDATED SECTION STARTS HERE -->
+        <div class="relative z-[2] mt-28 px-[30px] flex justify-center">
+            <h1 class="bg-white/90 backdrop-blur-sm text-gray-800 text-[26px] p-6 rounded-2xl shadow-xl m-0 leading-[1.3] text-center w-full">
                 Children supported with a Bicycle by <br>
-                <span class="font-extrabold text-[#FFD700] text-[32px]"><?php echo $supporter_name; ?></span>
+                <!-- Changed text color to darker gold/orange (#ca8a04) so it is readable on white bg -->
+                <span class="font-extrabold text-[#FFD700] text-[32px] "><?php echo $supporter_name; ?></span>
             </h1>
         </div>
+        <!-- UPDATED SECTION ENDS HERE -->
 
         <!-- Bicycles -->
         <!-- Using percentages (%) for bottom/left/right ensures they stay on the 'path' regardless of screen size -->
