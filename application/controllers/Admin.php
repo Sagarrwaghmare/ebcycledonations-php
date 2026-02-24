@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin  extends CI_Controller
+class Admin extends CI_Controller
 {
     public function __construct()
     {
@@ -11,6 +11,7 @@ class Admin  extends CI_Controller
         $this->load->helper("application_helper");
         $this->load->model('User_Model');
         $this->load->model('Donation_Model');
+        $this->load->model('Admin_Model');
         $isActive = application_isactive();
 
         if (!$isActive) {
@@ -100,19 +101,51 @@ class Admin  extends CI_Controller
         $this->load->view('admin/add-recipients', $data);
     }
 
+    public function admins($admin_id = 1){
+        $data['admin'] = $this->Admin_Model->get_by_id($admin_id);
+        $data['mode'] = "EDIT";
+        $data['admin_id'] = $admin_id;
+
+        // var_dump($data);
+        $this->load->view('base/base');
+        $this->load->view('admin/add-admin', $data);
+    }
+    public function admin_update($admin_id){
+        
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');       
+
+        if (($this->form_validation->run() == FALSE)) {
+            echo "Login Fail";
+            $this->session->set_flashdata("error", "Please Enter All Fields");
+        } else {
+            $data = array(
+            "username" =>$this->input->post("username"),
+            "password" =>$this->input->post("password"),
+            );
+            $this->Admin_Model->update($admin_id,$data);
+            redirect('admin/');
+        }
+        redirect('admin/admins/'.$admin_id);
+    }
+
     // Functions
     public function login_submit()
     {
         // $this->session->dele 
         // Set validation rules
         $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');       
 
         if (($this->form_validation->run() == FALSE)) {
             echo "Login Fail";
             $this->session->set_flashdata("error", "Please Enter All Fields");
         } else {
-            if ($this->input->post('username') == "admin" && $this->input->post('password') == "admin") {
+        $data['admin'] = $this->Admin_Model->login_check($this->input->post('username') , $this->input->post('password'));
+            if($data['admin'] == FALSE || empty($data['admin'])) {
+                $this->session->set_flashdata("error", "Invalid Username or Password");
+                echo "Login Fail, invalid password";
+            }else{
                 $user_data = [
                     'username' => $this->input->post('username'),
                     'password' => $this->input->post('password'),
@@ -121,9 +154,6 @@ class Admin  extends CI_Controller
                 $this->session->set_userdata($user_data);
                 redirect('admin/supporters');
                 return;
-            } else {
-                $this->session->set_flashdata("error", "Invalid Username or Password");
-                echo "Login Fail, invalid password";
             }
         }
         redirect('admin/');
@@ -260,8 +290,9 @@ class Admin  extends CI_Controller
 
         redirect("admin/supporters");
     }
-    public function delete_supporter_full($supporter_id){
-        
+    public function delete_supporter_full($supporter_id)
+    {
+
         $data = null;
         $data['recipients'] = $this->Donation_Model->delete_by_user_id($supporter_id);
         $data['supporter'] = $this->User_Model->delete($supporter_id);
