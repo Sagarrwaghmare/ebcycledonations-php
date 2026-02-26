@@ -57,7 +57,7 @@ $imageUrl = base_url('assets/images/bg.jpg');
     <meta property="twitter:image" content="<?php echo $imageUrl; ?>">
 
     <style>
-       
+
     </style>
 </head>
 
@@ -95,7 +95,7 @@ $imageUrl = base_url('assets/images/bg.jpg');
             <h1 class="bg-white/95 backdrop-blur-sm text-gray-800 text-[26px] p-6 rounded-2xl shadow-xl m-0 leading-[1.3] text-center w-full">
                 Children supported with a Bicycle by <br>
                 <!-- Changed text color to darker gold/orange (#ca8a04) so it is readable on white bg -->
-                 <!-- text-[#FFD700] -->
+                <!-- text-[#FFD700] -->
                 <span class="font-extrabold text-[#F58D3D]  text-[32px] "><?php echo $supporter_name; ?></span>
             </h1>
         </div>
@@ -113,15 +113,17 @@ $imageUrl = base_url('assets/images/bg.jpg');
                 }
                 # code...
                 // echo $key;
-                ?>
+            ?>
                 <!-- Cycle 0 (Left) -->
                 <a href="<?php echo base_url('main/recipient/' . $supporter_id . '/' . $value['id']); ?>"
                     class='<?php echo $positions[$i]; ?>'>
                     <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle"
                         class="w-full block drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]">
-                    <h2 class=" bg-black text-white p-[1px] rounded-sm hover:text-gray-300 font-light text-xs  text-center "><?php echo $value['studentName']; ?> </h2>
+                    <h2 class=" mt-0  text-nowrap backdrop-blur-md bg-black/70 text-white px-3 py-1 rounded-md text-xs font-medium text-center shadow-sm border border-white/10 hover:bg-black/80 transition-all">
+                        <?php echo $value['studentName']; ?>
+                    </h2>
                 </a>
-                <?php
+            <?php
                 $i++;
             }
 
@@ -181,17 +183,17 @@ $imageUrl = base_url('assets/images/bg.jpg');
             menu.classList.toggle('hidden');
         }
 
-        document.addEventListener('click', function (event) {
+        document.addEventListener('click', function(event) {
             const menu = document.getElementById('share-options');
             const shareBtn = document.querySelector('button[onclick="toggleShareMenu(event)"]');
 
             if (!menu.classList.contains('hidden') && !menu.contains(event.target) && !shareBtn.contains(event
-                .target)) {
+                    .target)) {
                 menu.classList.add('hidden');
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             const currentUrl = encodeURIComponent(window.location.href);
             const supporterName = "<?php echo addslashes($supporter_name); ?>";
