@@ -119,7 +119,7 @@ $imageUrl = base_url('assets/images/bg.jpg');
                     class='<?php echo $positions[$i]; ?>'>
                     <img src='<?= base_url("assets/images/cycle.png") ?>' alt="Bicycle"
                         class="w-full block drop-shadow-[0_5px_5px_rgba(0,0,0,0.4)]">
-                    <h2 class=" mt-0  text-nowrap backdrop-blur-md bg-black/70 text-white px-3 py-1 rounded-md text-xs font-medium text-center shadow-sm border border-white/10 hover:bg-black/80 transition-all">
+                    <h2 class=" mt-0   backdrop-blur-md bg-black/70 text-white px-3 py-1 rounded-md text-xs font-medium text-center shadow-sm border border-white/10 hover:bg-black/80 transition-all">
                         <?php echo $value['studentName']; ?>
                     </h2>
                 </a>
