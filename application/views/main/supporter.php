@@ -92,11 +92,11 @@ $imageUrl = base_url('assets/images/bg.jpg');
         <!-- Text Overlay -->
         <!-- UPDATED SECTION STARTS HERE -->
         <div class="relative z-[2] mt-28 px-[30px] flex justify-center">
-            <h1 class="bg-white/90 backdrop-blur-sm text-gray-800 text-[26px] p-6 rounded-2xl shadow-xl m-0 leading-[1.3] text-center w-full">
+            <h1 class="bg-white/95 backdrop-blur-sm text-gray-800 text-[26px] p-6 rounded-2xl shadow-xl m-0 leading-[1.3] text-center w-full">
                 Children supported with a Bicycle by <br>
                 <!-- Changed text color to darker gold/orange (#ca8a04) so it is readable on white bg -->
                  <!-- text-[#FFD700] -->
-                <span class="font-extrabold  text-[32px] "><?php echo $supporter_name; ?></span>
+                <span class="font-extrabold text-[#F58D3D]  text-[32px] "><?php echo $supporter_name; ?></span>
             </h1>
         </div>
         <!-- UPDATED SECTION ENDS HERE -->
